@@ -35,7 +35,6 @@ label {
 	flex-direction: column;
 	gap: 3px;
 	width: fit-content;
-	margin: 7px 0 17px;
 }
 
 span {

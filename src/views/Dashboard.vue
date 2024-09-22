@@ -35,11 +35,11 @@ function signup(data) {
 
 <style scoped>
 section {
+  position: absolute;
+  inset: 47px 0 0 0;
   width: 100%;
   margin: 0 auto;
-  display: grid;
-  place-items: center;
-  padding: 17px;
+  padding: 7px;
   gap: 17px;
 }
 </style>

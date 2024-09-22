@@ -41,19 +41,19 @@ onMounted(() => {
     router.push({ name: 'Home' })
   })
 
-  let userProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null
-  fetch(`${import.meta.env.VITE_BASE_URL}auth/access`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      app: location.host,
-      user: userProfile,
-      browser: navigator.userAgent,
-      language: navigator.language
-    })
-  })
+  // let userProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null
+  // fetch(`${import.meta.env.VITE_BASE_URL}auth/access`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     app: location.host,
+  //     user: userProfile,
+  //     browser: navigator.userAgent,
+  //     language: navigator.language
+  //   })
+  // })
 })
 
 function changeTheme() {

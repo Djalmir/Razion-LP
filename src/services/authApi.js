@@ -80,7 +80,7 @@ export default {
 	sendInvitationEmail({ name, email }) {
 		return authApi.post('auth/sendInvitationEmail', { name, email }, configs())
 	},
-	razionStatistics({ page, limit, search, sortBy, sortOrder }) {
-		return authApi.get(`auth/statistics?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}`, configs())
+	razionStatistics({ page, limit, search, sortBy, sortOrder, minDate, maxDate }) {
+		return authApi.get(`auth/statistics?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}${minDate ? `&minDate=${minDate}` : ''}${maxDate ? `&maxDate=${maxDate}` : ''}`, configs())
 	}
 }

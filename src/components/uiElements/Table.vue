@@ -59,7 +59,7 @@ onMounted(() => {
 		}
 	})
 
-	document.addEventListener('setLoading', setLoading)
+	window.addEventListener('setLoading', setLoading)
 })
 
 const darkTheme = ref(document.documentElement.classList.contains('dark-theme'))
@@ -101,40 +101,38 @@ const lightRow = (idx) => {
 
 let titleStyleDone = false
 function handleChildrenChanged() {
-	renderingTable.value = true
 	autoUpdating.value = true
 
-	setTimeout(() => {
-		if (!titleStyleDone) {
-			let titlesRow = headingRow.value.children[0]
-			titlesRow.classList.add('titlesRow')
-			titlesRow.style = darkTheme.value ? darkTitlesRow : lightTitlesRow
-			titleStyleDone = true
-		}
+	if (!titleStyleDone) {
+		let titlesRow = headingRow.value.children[0]
+		titlesRow.classList.add('titlesRow')
+		titlesRow.style = darkTheme.value ? darkTitlesRow : lightTitlesRow
+		titleStyleDone = true
+	}
 
-		let rowsChildren = Array.from(rows.value.children)
-		rowsChildren.map((row, idx) => {
-			row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
-			row.onmouseenter = () => {
-				row.style.filter = 'brightness(1.2)'
-				row.style.padding = '17px'
-			}
-			row.onmousedown = () => {
-				row.style.filter = 'brightness(.7)'
-			}
-			row.onmouseup = () => {
-				row.style.filter = 'brightness(1.2)'
-			}
-			row.onmouseleave = () => {
-				row.style.filter = 'brightness(1)'
-				row.style.padding = '0 17px'
-			}
-		})
-		setTimeout(() => {
-			renderingTable.value = false
-			autoUpdating.value = false
-		}, 0)
-	}, 0)
+	let rowsChildren = Array.from(rows.value.children)
+	rowsChildren.map((row, idx) => {
+		row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
+		row.onmouseenter = () => {
+			row.style.filter = 'brightness(1.2)'
+			row.style.padding = '17px'
+		}
+		row.onmousedown = () => {
+			row.style.filter = 'brightness(.7)'
+		}
+		row.onmouseup = () => {
+			row.style.filter = 'brightness(1.2)'
+		}
+		row.onmouseleave = () => {
+			row.style.filter = 'brightness(1)'
+			row.style.padding = '0 17px'
+		}
+	})
+
+	autoUpdating.value = false
+	setTimeout(() => {
+		renderingTable.value = false
+	}, 100)
 }
 
 function themeUpdated() {
@@ -177,7 +175,7 @@ function refresh() {
 }
 
 function setLoading(loading) {
-	if (loading)
+	if (loading.detail)
 		renderingTable.value = true
 }
 
@@ -213,7 +211,7 @@ defineExpose({
 
 .rows {
 	min-width: fit-content;
-	padding-bottom: 70px;
+	padding-bottom: 25vh;
 }
 
 .light-theme .headingRow {

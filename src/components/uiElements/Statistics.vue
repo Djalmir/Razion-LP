@@ -1,31 +1,60 @@
 <template>
   <div class="statistics" v-show="userProfile && accessGranted">
+    <div class="flexDiv" style="width: fit-content; margin:0 0 17px auto; flex-wrap: wrap;">
+      <Input label="A partir de" type="date" v-model="minDate" style="flex: 1;" />
+      <Input label="Até" type="date" v-model="maxDate" style="flex: 1;" />
+    </div>
     <div class="flexDiv">
-      <span style="padding: 0 17px;">{{ totalRegisters }} acessos encontrados</span>
+      <span style="padding: 0 7px; font-size: .8rem; margin-top: auto;">
+        {{ totalRegisters > 0 ? totalRegisters : 'Nenhum' }} acesso{{ totalRegisters > 1 ? 's' : '' }} encontrado{{ totalRegisters > 1 ? 's' : '' }}
+      </span>
       <Input class="searchInput" placeholder="Pesquisar" v-model="search" :leftIcon="{ class: 'search' }" :rightIcon="{ class: 'x', vIf: search, action: () => search = '' }" />
     </div>
-    <Table class="table" ref="table" templateColumns="minmax(111px, 1fr) minmax(90px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage">
+    <Table class="table" ref="table" templateColumns="minmax(171px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage">
       <template v-slot:headingRow ref="headingRow">
         <div class="titleRow">
-          <b>Data</b>
-          <b>Hora</b>
-          <b>App</b>
-          <b>Ip</b>
-          <b>Usuário</b>
-          <b>Navegador</b>
-          <b>Linguagem</b>
-          <b>Cidade</b>
-          <b>Estado</b>
-          <b>País</b>
+          <b @click="() => { sortBy = 'date'; toggleSortOrder() }">
+            Data
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'date'" />
+          </b>
+          <b @click="() => { sortBy = 'app'; toggleSortOrder() }">
+            App
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'app'" />
+          </b>
+          <b @click="() => { sortBy = 'ip'; toggleSortOrder() }">
+            Ip
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'ip'" />
+          </b>
+          <b @click="() => { sortBy = 'user.name'; toggleSortOrder() }">
+            Usuário
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'user.name'" />
+          </b>
+          <b @click="() => { sortBy = 'browser'; toggleSortOrder() }">
+            Navegador
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'browser'" />
+          </b>
+          <b @click="() => { sortBy = 'language'; toggleSortOrder() }">
+            Linguagem
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'language'" />
+          </b>
+          <b @click="() => { sortBy = 'geolocation.city'; toggleSortOrder() }">
+            Cidade
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.city'" />
+          </b>
+          <b @click="() => { sortBy = 'geolocation.region'; toggleSortOrder() }">
+            Estado
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.region'" />
+          </b>
+          <b @click="() => { sortBy = 'geolocation.country'; toggleSortOrder() }">
+            País
+            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.country'" />
+          </b>
         </div>
       </template>
       <template v-slot:rows ref="rows">
         <div v-for="access in accesses" :key="access._id" class="row">
           <span>
-            <SpinnerText>{{ getDate(access.date) }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ getTime(access.date) }}</SpinnerText>
+            <SpinnerText>{{ getDate(access.date) }} - {{ getTime(access.date) }}</SpinnerText>
           </span>
           <span>
             <SpinnerText> {{ access.app }}</SpinnerText>
@@ -64,6 +93,7 @@ import { useStore } from '@/stores/main'
 import Input from '@/components/formElements/Input.vue'
 import Table from '@/components/uiElements/Table.vue'
 import SpinnerText from '@/components/uiElements/SpinnerText.vue'
+import Icon from '@/components/uiElements/Icon.vue'
 import authApi from '@/services/authApi.js'
 
 const store = useStore()
@@ -77,17 +107,34 @@ const totalRegisters = ref(0)
 const currentPage = ref(1)
 const regPerPage = ref(30)
 const search = ref('')
-const sortBy = ref('_id')
+const sortBy = ref('date')
 const sortOrder = ref('desc')
+const minDate = ref(null)
+const maxDate = ref(null)
 const totalPages = ref(0)
+
+const sortChevronRotation = computed(() => sortOrder.value === 'asc' ? '180deg' : '0deg')
 
 let searchTimer
 watch(search, () => {
   clearTimeout(searchTimer)
   searchTimer = setTimeout(() => {
-    currentPage.value = 1
-    accesses.value = []
-    getStatistics()
+    clearAndUpdate()
+  }, 500)
+})
+
+let dateTimer
+watch(minDate, () => {
+  clearTimeout(dateTimer)
+  dateTimer = setTimeout(() => {
+    clearAndUpdate()
+  }, 500)
+})
+
+watch(maxDate, () => {
+  clearTimeout(dateTimer)
+  dateTimer = setTimeout(() => {
+    clearAndUpdate()
   }, 500)
 })
 
@@ -101,13 +148,21 @@ onMounted(() => {
     getStatistics()
 })
 
+function clearAndUpdate() {
+  currentPage.value = 1
+  accesses.value = []
+  getStatistics()
+}
+
 async function getStatistics() {
   await authApi.razionStatistics({
     page: currentPage.value,
     limit: regPerPage.value,
     search: search.value,
     sortBy: sortBy.value,
-    sortOrder: sortOrder.value
+    sortOrder: sortOrder.value,
+    minDate: minDate.value,
+    maxDate: maxDate.value
   })
     .then((res) => {
       accesses.value = [...accesses.value, ...res.data.accesses]
@@ -116,11 +171,16 @@ async function getStatistics() {
       accessGranted.value = true
     })
     .catch((err) => {
-      if (err.response.data.error == 'Acesso negado') {
+      if (err.response?.data.error == 'Acesso negado') {
         accessGranted.value = false
         router.push({ name: 'Home' })
       }
     })
+}
+
+function toggleSortOrder() {
+  sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+  clearAndUpdate()
 }
 
 function getDate(date) {
@@ -128,7 +188,7 @@ function getDate(date) {
 }
 
 function getTime(date) {
-  return new Date(date).toLocaleTimeString()
+  return new Date(date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 }
 
 function getBrowser(userAgent) {
@@ -168,26 +228,31 @@ function getNextPage() {
 .statistics {
   width: 100%;
   max-height: calc(100vh - 73px);
-  margin: 33px auto 0;
-  display: grid;
-  place-items: center;
+  margin: 0 auto;
   padding: 17px;
-  gap: 17px;
   overflow: hidden;
 }
 
 .flexDiv {
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-wrap: wrap-reverse;
+  align-items: center;
   gap: 7px;
   justify-content: space-between;
+  margin: 7px 0;
+}
+
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+  max-width: 480px;
   margin: 0;
 }
 
-.searchInput {
-  width: 100%;
-  max-width: 480px;
+.table {
+  margin-top: 17px;
 }
 
 .titleRow b {
@@ -195,6 +260,10 @@ function getNextPage() {
   font-weight: bold;
   padding: 7px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: space-between;
 }
 
 .titleRow b:not(:last-of-type) {
@@ -207,6 +276,11 @@ function getNextPage() {
 
 .titleRow b:active {
   filter: brightness(.5);
+}
+
+.chevron-up {
+  transform: rotateX(v-bind(sortChevronRotation));
+  transition: transform .2s;
 }
 
 .row span {
