@@ -1,8 +1,8 @@
 <template>
   <div class="statistics" v-show="userProfile && accessGranted">
     <div class="flexDiv" style="width: fit-content; margin:0 0 17px auto; flex-wrap: wrap;">
-      <Input label="A partir de" type="date" v-model="minDate" style="flex: 1;" />
-      <Input label="Até" type="date" v-model="maxDate" style="flex: 1;" />
+      <Input label="A partir de" type="date" v-model="minDate" style="flex: 1; min-width: 130px;" />
+      <Input label="Até" type="date" v-model="maxDate" style="flex: 1; min-width: 130px;" />
     </div>
     <div class="flexDiv">
       <span style="padding: 0 7px; font-size: .8rem; margin-top: auto;">
