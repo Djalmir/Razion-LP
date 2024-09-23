@@ -1,7 +1,7 @@
 <template>
-	<label>
+	<label @click="handleClick" style="display: flex; align-items: center; gap: 7px;">
 		<slot name="left-label"></slot>
-		<div class="switchContainer" @click="handleClick" tabindex="0">
+		<div class="switchContainer" tabindex="0">
 			<Icon v-if="leftIcon" :class="leftIcon"></Icon>
 			<div class="switch"></div>
 			<Icon v-if="rightIcon" :class="rightIcon"></Icon>
