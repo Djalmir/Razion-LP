@@ -1,9 +1,13 @@
 <template>
-	<div class="switchContainer" @click="handleClick" tabindex="0">
-		<Icon v-if="leftIcon" :class="leftIcon"></Icon>
-		<div class="switch"></div>
-		<Icon v-if="rightIcon" :class="rightIcon"></Icon>
-	</div>
+	<label>
+		<slot name="left-label"></slot>
+		<div class="switchContainer" @click="handleClick" tabindex="0">
+			<Icon v-if="leftIcon" :class="leftIcon"></Icon>
+			<div class="switch"></div>
+			<Icon v-if="rightIcon" :class="rightIcon"></Icon>
+		</div>
+		<slot name="right-label"></slot>
+	</label>
 </template>
 
 <script setup>

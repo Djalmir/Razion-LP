@@ -1,10 +1,18 @@
 <template>
   <div class="statistics" v-show="userProfile && accessGranted">
-    <div class="flexDiv" style="width: fit-content; margin:0 0 17px auto; flex-wrap: wrap;">
-      <Input label="A partir de" type="date" v-model="minDate" style="flex: 1; min-width: 130px;" />
-      <Input label="Até" type="date" v-model="maxDate" style="flex: 1; min-width: 130px;" />
-    </div>
     <div class="flexDiv">
+
+      <Switch v-model="showMyAccesses" left-icon="check" right-icon="x">
+        <template v-slot:right-label>
+          Exibir meus acessos
+        </template>
+      </Switch>
+      <div class="flexDiv" style="width: fit-content; margin:0 0 17px auto;">
+        <Input label="A partir de" type="date" v-model="minDate" style="flex: 1; min-width: 130px;" />
+        <Input label="Até" type="date" v-model="maxDate" style="flex: 1; min-width: 130px;" />
+      </div>
+    </div>
+    <div class="flexDiv" style="flex-wrap: wrap-reverse;">
       <span style="padding: 0 7px; font-size: .8rem; margin-top: auto;">
         {{ totalRegisters > 0 ? totalRegisters : 'Nenhum' }} acesso{{ totalRegisters > 1 ? 's' : '' }} encontrado{{ totalRegisters > 1 ? 's' : '' }}
       </span>
@@ -95,6 +103,7 @@ import Table from '@/components/uiElements/Table.vue'
 import SpinnerText from '@/components/uiElements/SpinnerText.vue'
 import Icon from '@/components/uiElements/Icon.vue'
 import authApi from '@/services/authApi.js'
+import Switch from '@/components/formElements/Switch.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -106,6 +115,7 @@ const accesses = ref([])
 const totalRegisters = ref(0)
 const currentPage = ref(1)
 const regPerPage = ref(30)
+const showMyAccesses = ref(false)
 const search = ref('')
 const sortBy = ref('date')
 const sortOrder = ref('desc')
@@ -138,6 +148,10 @@ watch(maxDate, () => {
   }, 500)
 })
 
+watch(showMyAccesses, () => {
+  clearAndUpdate()
+})
+
 watch(userProfile, () => {
   if (userProfile.value)
     getStatistics()
@@ -162,7 +176,8 @@ async function getStatistics() {
     sortBy: sortBy.value,
     sortOrder: sortOrder.value,
     minDate: minDate.value,
-    maxDate: maxDate.value
+    maxDate: maxDate.value,
+    showMyAccesses: showMyAccesses.value
   })
     .then((res) => {
       accesses.value = [...accesses.value, ...res.data.accesses]
@@ -236,7 +251,7 @@ function getNextPage() {
 .flexDiv {
   width: 100%;
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   align-items: center;
   gap: 7px;
   justify-content: space-between;
