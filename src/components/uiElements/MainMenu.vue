@@ -66,43 +66,32 @@ const topMenuItems = computed(() => {
 					icon: 'user',
 					pathName: 'Profile'
 				},
-				{
-					label: 'Preferências',
-					icon: 'sliders',
-					submenu: [
-						{
-							label: 'Tema',
-							rightComponent: 'Switch',
-							leftIcon: 'moon',
-							rightIcon: 'sun',
-							vModel: darkTheme,
-							action: () => {
-								emit('toggleTheme')
-							}
-						}
-					]
-				}
+				settingsMenu
 			]
 		},
 		{
 			vIf: !userProfile.value,
-			label: 'Preferências',
-			icon: 'sliders',
-			submenu: [
-				{
-					label: 'Tema',
-					rightComponent: 'Switch',
-					leftIcon: 'moon',
-					rightIcon: 'sun',
-					vModel: darkTheme,
-					action: () => {
-						emit('toggleTheme')
-					}
-				}
-			]
+			...settingsMenu
 		}
 	]
 })
+
+const settingsMenu = {
+	label: 'Preferências',
+	icon: 'sliders',
+	submenu: [
+		{
+			label: 'Tema',
+			rightComponent: 'Switch',
+			leftIcon: 'moon',
+			rightIcon: 'sun',
+			vModel: darkTheme,
+			action: () => {
+				emit('toggleTheme')
+			}
+		}
+	]
+}
 
 const bottomMenuItems = [
 	{
