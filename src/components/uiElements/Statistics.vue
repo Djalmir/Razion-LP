@@ -1,13 +1,14 @@
 <template>
   <div class="statistics" v-show="userProfile && accessGranted">
-    <div class="flexDiv">
-
+    <div class="flexDiv" style="justify-content: flex-end; margin:0 0 17px; gap: 17px;">
       <Switch v-model="showMyAccesses" left-icon="check" right-icon="x">
-        <template v-slot:right-label>
-          Exibir meus acessos
+        <template v-slot:left-label>
+          <b style="font-size: .9rem;">
+            Exibir meus acessos
+          </b>
         </template>
       </Switch>
-      <div class="flexDiv" style="width: fit-content; margin:0 0 17px auto;">
+      <div class="flexDiv" style="width: fit-content; gap: 27px 7px;">
         <Input label="A partir de" type="date" v-model="minDate" style="flex: 1; min-width: 130px;" />
         <Input label="Até" type="date" v-model="maxDate" style="flex: 1; min-width: 130px;" />
       </div>

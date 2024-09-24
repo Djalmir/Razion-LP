@@ -35,13 +35,16 @@ label {
 	flex-direction: column;
 	gap: 3px;
 	width: fit-content;
+	position: relative;
 }
 
 span {
 	font-size: .9rem;
-	padding-left: 7px;
 	white-space: nowrap;
 	font-weight: bold;
+	position: absolute;
+	bottom: calc(100% + 3px);
+	left: 7px;
 }
 
 .inputWrapper {

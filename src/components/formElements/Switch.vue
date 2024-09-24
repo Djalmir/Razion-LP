@@ -2,9 +2,9 @@
 	<label @click="handleClick" style="display: flex; align-items: center; gap: 7px; cursor: pointer;">
 		<slot name="left-label"></slot>
 		<div class="switchContainer" tabindex="0">
-			<Icon v-if="leftIcon" :class="leftIcon"></Icon>
+			<Icon v-if="leftIcon" :class="leftIcon" bold></Icon>
 			<div class="switch"></div>
-			<Icon v-if="rightIcon" :class="rightIcon"></Icon>
+			<Icon v-if="rightIcon" :class="rightIcon" bold></Icon>
 		</div>
 		<slot name="right-label"></slot>
 	</label>
