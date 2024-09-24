@@ -119,7 +119,7 @@ const headerTransition = computed(() => {
 })
 
 onMounted(() => {
-	document.addEventListener('setLoading', setLoading)
+	window.addEventListener('setLoading', setLoading)
 })
 
 function setLoading(e) {

@@ -31,7 +31,7 @@ const linearGradient = computed(() => {
 
 const loading = ref(false)
 
-document.addEventListener('setLoading', (e) => {
+window.addEventListener('setLoading', (e) => {
 	if (props.type == 'submit' && (document.activeElement == self.value || !e.detail))
 		loading.value = e.detail ? true : false
 })

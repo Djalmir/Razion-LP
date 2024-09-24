@@ -1,5 +1,5 @@
 <template>
-	<label>
+	<label v-bind="$attrs">
 		<span v-if="label">
 			{{ label }}
 		</span>
@@ -35,16 +35,14 @@ label {
 	flex-direction: column;
 	gap: 3px;
 	width: fit-content;
-	position: relative;
+	margin: 7px 0 17px;
 }
 
 span {
 	font-size: .9rem;
+	padding-left: 7px;
 	white-space: nowrap;
 	font-weight: bold;
-	position: absolute;
-	bottom: calc(100% + 3px);
-	left: 7px;
 }
 
 .inputWrapper {

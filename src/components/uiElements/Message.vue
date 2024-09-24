@@ -20,7 +20,7 @@ const messages = ref([])
 const msgsRef = ref()
 
 onMounted(() => {
-	document.addEventListener('closeAllMessages', closeAll)
+	window.addEventListener('closeAllMessages', closeAll)
 })
 
 function show(msg) {

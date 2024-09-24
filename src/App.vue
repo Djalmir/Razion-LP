@@ -34,9 +34,9 @@ onMounted(() => {
     }
   })
 
-  document.addEventListener('showMessage', showMessage)
+  window.addEventListener('showMessage', showMessage)
 
-  document.addEventListener('logout', () => {
+  window.addEventListener('logout', () => {
     store.setUserProfile(null)
     router.push({ name: 'Home' })
   })
