@@ -20,79 +20,35 @@
       <Input class="searchInput" placeholder="Pesquisar" v-model="search" :leftIcon="{ class: 'search' }" :rightIcon="{ class: 'x', vIf: search, action: () => search = '' }" />
     </div>
     <Table class="table" ref="table" templateColumns="minmax(171px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage">
-      <template v-slot:headingRow ref="headingRow">
+      <template #headingRow>
         <div class="titleRow">
-          <b @click="() => { sortBy = 'date'; toggleSortOrder() }">
-            Data
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'date'" />
-          </b>
-          <b @click="() => { sortBy = 'app'; toggleSortOrder() }">
-            App
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'app'" />
-          </b>
-          <b @click="() => { sortBy = 'ip'; toggleSortOrder() }">
-            Ip
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'ip'" />
-          </b>
-          <b @click="() => { sortBy = 'user.name'; toggleSortOrder() }">
-            Usuário
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'user.name'" />
-          </b>
-          <b @click="() => { sortBy = 'browser'; toggleSortOrder() }">
-            Navegador
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'browser'" />
-          </b>
-          <b @click="() => { sortBy = 'language'; toggleSortOrder() }">
-            Linguagem
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'language'" />
-          </b>
-          <b @click="() => { sortBy = 'geolocation.city'; toggleSortOrder() }">
-            Cidade
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.city'" />
-          </b>
-          <b @click="() => { sortBy = 'geolocation.region'; toggleSortOrder() }">
-            Estado
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.region'" />
-          </b>
-          <b @click="() => { sortBy = 'geolocation.country'; toggleSortOrder() }">
-            País
-            <Icon class="chevron-up" :size="1.25" v-if="sortBy === 'geolocation.country'" />
-          </b>
+          <Th title="Data" sortValue="date" @click="setSortBy('date')" :showChevron="sortBy == 'date'" :chevronRotation="sortChevronRotation" />
+          <Th title="App" sortValue="app" @click="setSortBy('app')" :showChevron="sortBy == 'app'" :chevronRotation="sortChevronRotation" />
+          <Th title="IP" sortValue="ip" @click="setSortBy('ip')" :showChevron="sortBy == 'ip'" :chevronRotation="sortChevronRotation" />
+          <Th title="Usuário" sortValue="user.name" @click="setSortBy('user.name')" :showChevron="sortBy == 'user.name'" :chevronRotation="sortChevronRotation" />
+          <Th title="Navegador" sortValue="browser" @click="setSortBy('browser')" :showChevron="sortBy == 'browser'" :chevronRotation="sortChevronRotation" />
+          <Th title="Linguagem" sortValue="language" @click="setSortBy('language')" :showChevron="sortBy == 'language'" :chevronRotation="sortChevronRotation" />
+          <Th title="Cidade" sortValue="geolocation.city" @click="setSortBy('geolocation.city')" :showChevron="sortBy == 'geolocation.city'" :chevronRotation="sortChevronRotation" />
+          <Th title="Estado" sortValue="geolocation.region" @click="setSortBy('geolocation.region')" :showChevron="sortBy == 'geolocation.region'" :chevronRotation="sortChevronRotation" />
+          <Th title="País" sortValue="geolocation.country" @click="setSortBy('geolocation.country')" :showChevron="sortBy == 'geolocation.country'" :chevronRotation="sortChevronRotation" />
         </div>
       </template>
-      <template v-slot:rows ref="rows">
-        <div v-for="access in accesses" :key="access._id" class="row">
-          <span>
-            <SpinnerText>{{ getDate(access.date) }} - {{ getTime(access.date) }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText> {{ access.app }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText> {{ access.ip }} </SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ access.user?.name || '-' }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ getBrowser(access.browser) }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText> {{ access.language }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ access.geolocation.city }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ access.geolocation.region }}</SpinnerText>
-          </span>
-          <span>
-            <SpinnerText>{{ access.geolocation.country }}</SpinnerText>
-          </span>
+      <template #rows>
+        <div v-for="access in accesses" :key="access._id" class="row" @click="detailsModal.show(access)">
+          <Td>{{ getDate(access.date) }} - {{ getTime(access.date) }}</Td>
+          <Td>{{ access.app }}</Td>
+          <Td>{{ access.ip }}</Td>
+          <Td>{{ access.user?.name || '-' }}</Td>
+          <Td :abbr="access.browser">{{ getBrowser(access.browser) }}</Td>
+          <Td>{{ access.language }}</Td>
+          <Td>{{ access.geolocation.city }}</Td>
+          <Td>{{ access.geolocation.region }}</Td>
+          <Td>{{ access.geolocation.country }}</Td>
         </div>
       </template>
     </Table>
   </div>
+  <AccessDetailsModal ref="detailsModal" />
 </template>
 
 <script setup>
@@ -101,15 +57,17 @@ import { useRouter } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Input from '@/components/formElements/Input.vue'
 import Table from '@/components/uiElements/Table.vue'
-import SpinnerText from '@/components/uiElements/SpinnerText.vue'
-import Icon from '@/components/uiElements/Icon.vue'
+import Th from '@/components/componentElements/Table/Th.vue'
+import Td from '@/components/componentElements/Table/Td.vue'
 import authApi from '@/services/authApi.js'
 import Switch from '@/components/formElements/Switch.vue'
+import AccessDetailsModal from '@/components/viewElements/Dashboard/AccessDetailsModal.vue'
+import { getDate, getTime } from '@/utils/date'
 
 const store = useStore()
 const router = useRouter()
+const detailsModal = ref()
 const userProfile = computed(() => store.userProfile)
-const message = inject('Message').value
 
 const accessGranted = ref(false)
 const accesses = ref([])
@@ -194,17 +152,19 @@ async function getStatistics() {
     })
 }
 
+function setSortBy(value) {
+  if (value == sortBy.value) {
+    toggleSortOrder()
+  }
+  else {
+    sortBy.value = value
+    clearAndUpdate()
+  }
+}
+
 function toggleSortOrder() {
   sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
   clearAndUpdate()
-}
-
-function getDate(date) {
-  return new Date(date).toLocaleDateString()
-}
-
-function getTime(date) {
-  return new Date(date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 }
 
 function getBrowser(userAgent) {
@@ -269,38 +229,5 @@ function getNextPage() {
 
 .table {
   margin-top: 17px;
-}
-
-.titleRow b {
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 7px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  justify-content: space-between;
-}
-
-.titleRow b:not(:last-of-type) {
-  border-right: 1px solid var(--light-font1);
-}
-
-.light-theme .titleRow b:not(:last-of-type) {
-  border-right: 1px solid var(--dark-font1);
-}
-
-.titleRow b:active {
-  filter: brightness(.5);
-}
-
-.chevron-up {
-  transform: rotateX(v-bind(sortChevronRotation));
-  transition: transform .2s;
-}
-
-.row span {
-  white-space: nowrap;
-  padding: 7px;
 }
 </style>

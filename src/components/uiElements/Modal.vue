@@ -11,7 +11,7 @@
 				<section>
 					<slot></slot>
 				</section>
-				<footer class="modalFooter" ref="modalFooter">
+				<footer class="modalFooter">
 					<slot name="footer"></slot>
 				</footer>
 				<Button class="secondary closeModalBt" @click="$emit('close')">
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, inject, computed, onMounted } from 'vue'
+import { ref, inject, computed} from 'vue'
 import Button from '@/components/uiElements/Button.vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
@@ -31,22 +31,17 @@ const showing = ref(false)
 const message = inject('Message').value
 
 const modal = ref()
-const modalFooter = ref()
-// const observer = ref()
 
 const sectionPadding = computed(() => {
 	let showingHeader = modal.value?.querySelector('.modalHeader').children.length
 	let showingFooter = modal.value?.querySelector('.modalFooter').children.length
-	return `${ showingHeader ? '51px' : '17px' } 17px ${ showingFooter ? '69px' : '17px' } 17px`
+	return `${showingHeader ? '51px' : '17px'} 17px ${showingFooter ? '69px' : '17px'} 17px`
 })
 
 function show() {
 	message.closeAll()
 	document.body.click()
 	showing.value = true
-	setTimeout(() => {
-		footerStyles()
-	}, 0)
 	setTimeout(() => {
 		let element = modal.value.querySelector('section input', 'section textarea', 'section select', 'section button')
 		if (element) {
@@ -56,22 +51,6 @@ function show() {
 			modal.value.focus()
 		}
 	}, 200)
-}
-
-// function initObserver() {
-// 	let config = {
-// 		childList: true
-// 	}
-// 	observer.value = new MutationObserver(() => {
-// 		footerStyles()
-// 	})
-// 	observer.value.observe(modalFooter.value, config)
-// }
-
-function footerStyles() {
-	Array.from(modalFooter.value?.children).forEach((child) => {
-		child.style.flex = '1'
-	})
 }
 
 function close() {
@@ -117,8 +96,7 @@ defineExpose({
 
 .modal {
 	position: relative;
-	width: 77%;
-	max-width: 500px;
+	max-width: 90vw;
 	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
 	box-shadow: var(--dark-box-shadow);
 	border-radius: .3rem;
@@ -169,6 +147,10 @@ defineExpose({
 	box-shadow: var(--dark-box-shadow);
 }
 
+.modalFooter * {
+	flex: 1;
+}
+
 .light-theme .modal .modalFooter {
 	background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg1-transparent));
 	box-shadow: var(--light-box-shadow);
@@ -190,4 +172,4 @@ defineExpose({
 .light-theme .closeModalBt {
 	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
 }
-</style>./Button.vue./Icon.vue./Button.vue./Icon.vue./Button.vue./Icon.vue./Button.vue./Icon.vue
+</style>

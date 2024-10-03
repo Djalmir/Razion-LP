@@ -8,7 +8,7 @@
 <script setup>
 import { ref, computed, inject } from 'vue'
 import AuthBox from '@/components/uiElements/AuthBox.vue'
-import Statistics from '@/components/uiElements/Statistics.vue'
+import Statistics from '@/components/viewElements/Dashboard/Statistics.vue'
 import { useStore } from '@/stores/main'
 
 const store = useStore()

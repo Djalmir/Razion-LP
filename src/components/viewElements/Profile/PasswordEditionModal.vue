@@ -5,7 +5,7 @@
 			<b>Alterar senha</b>
 		</template>
 
-		<Input class="input" label="Senha atual" type="password" v-model="currentPassword" @keypress.enter="updatePassword" />
+		<Input class="input" label="Senha atual" type="password" v-model="currentPassword" @keypress.enter="updatePassword" style="width: 380px; max-width: 100%;"/>
 		<Input class="input" label="Nova senha" type="password" v-model="newPassword" @keypress.enter="updatePassword" />
 		<Input class="input" label="Confirmar nova senha" type="password" v-model="confirmNewPassword" @keypress.enter="updatePassword" />
 
