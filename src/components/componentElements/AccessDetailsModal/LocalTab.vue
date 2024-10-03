@@ -1,5 +1,5 @@
 <template>
-  <div tab-id="local" tab-title="Local" style="position: relative;">
+  <div tab-id="local" tab-title="Local" tab-icon="map-pin" style="position: relative;">
     <div class="mapContainer" ref="mapContainer" v-if="showingMap" tabindex="0" @keydown.esc.stop.prevent="showingMap = false">
       <Map :lat="getLatitude(access.geolocation.loc)" :lng="getLongitude(access.geolocation.loc)" :marker="true" :zoom="10" class="map" />
       <Button class="closeMapButton" @click="showingMap = false">

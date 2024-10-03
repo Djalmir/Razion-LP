@@ -31,7 +31,10 @@ function show(details) {
   modal.value.show()
 }
 
+const emit = defineEmits(['closeModal'])
+
 function close() {
+  emit('closeModal')
   modal.value.close()
 }
 

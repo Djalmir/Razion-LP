@@ -34,7 +34,7 @@
         </div>
       </template>
       <template #rows>
-        <div v-for="access in accesses" :key="access._id" class="row" @click="detailsModal.show(access)">
+        <div v-for="access in accesses" :key="access._id" :class="`row ${showingAccess == access ? 'active' : ''}`" @click="() => { showingAccess = access; detailsModal.show(access) }">
           <Td>{{ getDate(access.date) }} - {{ getTime(access.date) }}</Td>
           <Td>{{ access.app }}</Td>
           <Td>{{ access.ip }}</Td>
@@ -48,7 +48,7 @@
       </template>
     </Table>
   </div>
-  <AccessDetailsModal ref="detailsModal" />
+  <AccessDetailsModal ref="detailsModal" @closeModal="rmShowingAccess" />
 </template>
 
 <script setup>
@@ -71,6 +71,7 @@ const userProfile = computed(() => store.userProfile)
 
 const accessGranted = ref(false)
 const accesses = ref([])
+const showingAccess = ref(null)
 const totalRegisters = ref(0)
 const currentPage = ref(1)
 const regPerPage = ref(30)
@@ -198,6 +199,13 @@ function getNextPage() {
     getStatistics()
   }
 }
+
+function rmShowingAccess() {
+  let row = document.querySelector('.row.active')
+  setTimeout(() => {
+    row.classList.remove('active')
+  }, 500)
+}
 </script>
 
 <style scoped>
@@ -229,5 +237,14 @@ function getNextPage() {
 
 .table {
   margin-top: 17px;
+}
+
+.row {
+  transition: all .1s, background .35s !important;
+}
+
+.row.active {
+  background: var(--primary) !important;
+  color: var(--dark-font2) !important;
 }
 </style>

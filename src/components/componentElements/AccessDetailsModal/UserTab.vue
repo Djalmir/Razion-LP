@@ -1,5 +1,5 @@
 <template>
-  <div tab-id="user" tab-title="Usuário" v-if="access.user">
+  <div tab-id="user" tab-title="Usuário" tab-icon="user" v-if="access.user">
     <div class="wrapper">
       <div class="flexDiv">
         <div id="pictureWrapper">

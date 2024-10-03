@@ -1,5 +1,5 @@
 <template>
-  <div tab-id="general" tab-title="Geral">
+  <div tab-id="general" tab-title="Geral" tab-icon="info">
     <div class="flexDiv" style="margin-bottom: 33px;">
       <sup class="flexDiv">
         <b>ID:</b>

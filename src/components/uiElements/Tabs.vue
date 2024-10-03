@@ -3,7 +3,7 @@
 		<header ref="header">
 			<nav>
 				<Button v-for="selector in tabSelectors" :key="selector.id" :class="`${currentTab == selector.id ? 'active' : ''} selector`" @click.stop="showTab(selector.id)" @mousedown.stop>
-					<Icon v-if="selector.icon" :class="selector.icon" :size=".95" />
+					<Icon v-if="selector.icon" :class="selector.icon" :size="1.25" />
 					<span v-if="selector.title">{{ selector.title }}</span>
 				</Button>
 			</nav>
