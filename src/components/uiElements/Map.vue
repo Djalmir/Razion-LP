@@ -5,8 +5,10 @@
 
 <script setup>
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
+import { useStore } from '@/stores/main'
 import L from 'leaflet'
 
+const store = useStore()
 const mapContainer = ref()
 let map
 const styles = ref(null)
@@ -53,6 +55,18 @@ onMounted(() => {
     maxZoom: 20
   })
 
+  const cartoDarkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+  })
+
+  const cartoLightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+  })
+
   const stadiaLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
     minZoom: 0,
     maxZoom: 20,
@@ -61,6 +75,8 @@ onMounted(() => {
   })
 
   const baseMaps = {
+    "Simples - Escuro": cartoDarkLayer,
+    "Simples - Claro": cartoLightLayer,
     "Simples": cartoLayer,
     "Detalhado": osmLayer,
     "Satélite": stadiaLayer
@@ -70,9 +86,15 @@ onMounted(() => {
 
 
   map.whenReady(() => {
-    baseMaps["Simples"].addTo(map)
-    if (props.marker)
-      L.marker([props.lat, props.lng]).addTo(map)
+    if (store.darkTheme)
+      baseMaps["Simples - Escuro"].addTo(map)
+    else
+      baseMaps["Simples - Claro"].addTo(map)
+
+    setTimeout(() => {
+      if (props.marker)
+        L.marker([props.lat, props.lng]).addTo(map)
+    }, 100)
   })
 })
 
