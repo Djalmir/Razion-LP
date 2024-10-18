@@ -10,9 +10,21 @@ const routes = [
     component: Home
   },
   {
+    path: '/auth',
+    name: 'Auth',
+    component: () => import('../views/Auth.vue')
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue'),
+    authRequired: true
+  },
+  {
+    path: '/estimativeGenerator',
+    name: 'EstimativeGenerator',
+    component: () => import('../views/EstimativeGenerator.vue'),
+    authRequired: true
   },
   {
     path: '/profile',
@@ -39,12 +51,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const allowedRoles = ['owner', 'admin']
   const store = useStore()
   dispatchEvent('closeAllMessages')
   if (store.showingMenu)
     store.toggleMenu()
   to.authRequired = routes.find((route) => route.name == to.name).authRequired
-  if (to.authRequired && !store.userProfile)
+  if (to.authRequired && !allowedRoles.includes(store.userProfile.role))
     next({ name: 'Home' })
   else
     next()

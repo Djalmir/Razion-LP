@@ -6,7 +6,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import svgLib from '@/assets/svgLib.svg'
+import svgLib from '/svgLib.svg'
 const props = defineProps({
 	size: {
 		type: Number,

@@ -47,6 +47,7 @@ span {
 
 .inputWrapper {
 	position: relative;
+	width: 100%;
 }
 
 .inputWrapper .icon {

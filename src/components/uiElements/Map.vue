@@ -84,7 +84,6 @@ onMounted(() => {
 
   L.control.layers(baseMaps).addTo(map)
 
-
   map.whenReady(() => {
     if (store.darkTheme)
       baseMaps["Simples - Escuro"].addTo(map)

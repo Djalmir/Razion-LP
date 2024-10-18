@@ -46,7 +46,7 @@ function redirect() {
   if (!redirectTimer) {
     redirectTimer = setTimeout(() => {
       if (clickCount >= 5) {
-        router.push({ name: 'Dashboard' })
+        router.push({ name: 'Auth' })
       }
       else {
         clearTimeout(redirectTimer)

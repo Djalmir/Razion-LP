@@ -23,6 +23,14 @@ span {
   padding: 7px;
 }
 
+span:first-of-type {
+  padding-left: 17px;
+}
+
+span:last-of-type {
+  padding-right: 17px;
+}
+
 abbr {
   text-decoration: none;
 }

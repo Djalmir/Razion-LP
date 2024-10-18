@@ -44,7 +44,7 @@ onMounted(() => {
 	if (viewContainer)
 		viewContainer.style.padding = '0'
 
-	fetch(`/src/assets/svgLib.svg`)
+	fetch(`/svgLib.svg`)
 		.then(res => res.text())
 		.then((res) => {
 			let arr = []

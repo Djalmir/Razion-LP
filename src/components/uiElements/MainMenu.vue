@@ -168,12 +168,13 @@ defineExpose({
 }
 
 #appMenu {
-	position: absolute;
+	/* position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100dvh;
-	padding: 133px 7px;
+	height: 100dvh; */
+	/* padding: 133px 7px; */
+	padding: 33px 7px;
 	overflow-y: auto;
 	pointer-events: all;
 }

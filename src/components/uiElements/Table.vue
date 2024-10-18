@@ -26,6 +26,10 @@ const props = defineProps({
 		type: String,
 		default: "minmax(220px, 1fr) minmax(120px, .5fr) minmax(180px, 1fr) 1fr",
 	},
+	scrollbars: {
+		type: Boolean,
+		default: true
+	}
 })
 
 const tableWrapper = ref(null)
@@ -60,19 +64,29 @@ onMounted(() => {
 	})
 
 	window.addEventListener('setLoading', setLoading)
+	setTimeout(() => {
+		handleChildrenChanged()
+
+		if (props.scrollbars) {
+			tableWrapper.value.style.overflow = 'auto'
+			tableWrapper.value.style.paddingBottom = '70px'
+			tableWrapper.value.style.height = rowsWrapperHeight.value
+
+			rows.value.style.paddingBottom = '25vh'
+			console.log(tableWrapper.value)
+		}
+	}, 0)
 })
 
 const darkTheme = ref(document.documentElement.classList.contains('dark-theme'))
 const darkTitlesRow = `
 	display: grid;
 	grid-template-columns: var(--template-columns);
-	padding: 0 17px;
 	color: var(--dark-font2);
 `
 const lightTitlesRow = `
 	display: grid;
 	grid-template-columns: var(--template-columns);
-	padding: 0 17px;
 	color: var(--light-font2);
 `
 
@@ -81,7 +95,6 @@ const darkRow = (idx) => {
 		display: grid;
 		grid-template-columns: var(--template-columns);
 		background: ${idx % 2 ? 'var(--dark-bg1)' : 'var(--dark-bg3)'};
-		padding: 0 17px;
 		color: var(--dark-font1);
 		cursor: pointer;
 		transition: .1s;
@@ -92,7 +105,6 @@ const lightRow = (idx) => {
 		display: grid;
 		grid-template-columns: var(--template-columns);
 		background: ${idx % 2 ? 'var(--light-bg1)' : 'var(--light-bg3)'};
-		padding: 0 17px;
 		color: var(--light-font1);
 		cursor: pointer;
 		transition: .1s;
@@ -115,7 +127,7 @@ function handleChildrenChanged() {
 		row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
 		row.onmouseenter = () => {
 			row.style.filter = 'brightness(1.2)'
-			row.style.padding = '17px'
+			row.style.padding = '17px 0'
 		}
 		row.onmousedown = () => {
 			row.style.filter = 'brightness(.7)'
@@ -125,7 +137,7 @@ function handleChildrenChanged() {
 		}
 		row.onmouseleave = () => {
 			row.style.filter = 'brightness(1)'
-			row.style.padding = '0 17px'
+			row.style.padding = '0'
 		}
 	})
 
@@ -192,9 +204,6 @@ defineExpose({
 <style scoped>
 .tableWrapper {
 	width: 100%;
-	height: v-bind(rowsWrapperHeight);
-	overflow: auto;
-	padding: 0 0 70px;
 	position: relative;
 	user-select: none;
 }
@@ -211,7 +220,6 @@ defineExpose({
 
 .rows {
 	min-width: fit-content;
-	padding-bottom: 25vh;
 }
 
 .light-theme .headingRow {

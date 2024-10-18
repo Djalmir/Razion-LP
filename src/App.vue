@@ -1,5 +1,7 @@
 <template>
-  <MainMenu v-if="store.userProfile" ref="mainMenu" @toggleTheme="changeTheme"></MainMenu>
+  <MainMenu v-if="store.userProfile" ref="mainMenu" @toggleTheme="changeTheme">
+    <RazionMenu v-if="hasPermissions" />
+  </MainMenu>
   <Header v-if="store.userProfile" @toggleTheme="changeTheme" />
   <RouterView />
   <Dialog ref="dialog" />
@@ -7,12 +9,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, provide } from 'vue'
+import { ref, onMounted, provide, computed } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Header from '@/components/uiElements/Header.vue'
 import MainMenu from '@/components/uiElements/MainMenu.vue'
-import MenuItem from '@/components/uiElements/MenuItem.vue'
+import RazionMenu from '@/components/uiElements/RazionMenu.vue'
 import Dialog from '@/components/uiElements/Dialog.vue'
 import Message from '@/components/uiElements/Message.vue'
 
@@ -23,6 +25,8 @@ provide('Dialog', dialog)
 const message = ref()
 provide('Message', message)
 const prefersDark = ref(window.matchMedia("(prefers-color-scheme: dark)"))
+
+const hasPermissions = computed(() => store.userProfile?.role === 'owner' || store.userProfile?.role === 'admin')
 
 onMounted(() => {
   if (!prefersDark.value.matches) {

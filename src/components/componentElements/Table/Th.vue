@@ -40,8 +40,16 @@ b {
   justify-content: space-between;
 }
 
+b:first-of-type {
+  padding-left: 17px;
+}
+
 b:not(:last-of-type) {
   border-right: 1px solid var(--light-font1);
+}
+
+b:last-of-type {
+  padding-right: 17px;
 }
 
 .light-theme b:not(:last-of-type) {
