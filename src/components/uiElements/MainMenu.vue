@@ -60,6 +60,7 @@ const topMenuItems = computed(() => {
 			vIf: userProfile.value,
 			label: store.userProfile?.name || '',
 			image: store.userProfile?.profilePicture || '',
+			icon: 'user',
 			submenu: [
 				{
 					label: 'Perfil',
