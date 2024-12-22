@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch, inject } from 'vue'
+import { ref, onMounted, watch, inject } from 'vue'
 import Input from '@/components/formElements/Input.vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
@@ -38,8 +38,6 @@ watch(iconSearch, () => {
 })
 
 onMounted(() => {
-	document.body.style.overflow = 'hidden'
-
 	let viewContainer = document.querySelector('#viewContainer')
 	if (viewContainer)
 		viewContainer.style.padding = '0'
@@ -76,28 +74,7 @@ function copyIcon(id) {
 </script>
 
 <style scoped>
-::-webkit-scrollbar {
-	background: transparent;
-	width: 7px;
-	height: 7px;
-}
-
-::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-	background: transparent;
-	border-radius: 7px;
-}
-
-::-webkit-scrollbar-thumb:hover,
-.scrolling::-webkit-scrollbar-thumb {
-	background: var(--dark-active);
-}
-
 section {
-	/* background: linear-gradient(to right, #121212 2%, #202020, #121212 98%); */
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -107,7 +84,6 @@ section {
 }
 
 h1 {
-	/* color: var(--color3); */
 	font-size: 1.5rem;
 	margin-bottom: 17px;
 }

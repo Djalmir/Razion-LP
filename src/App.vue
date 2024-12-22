@@ -2,14 +2,14 @@
   <MainMenu v-if="store.userProfile" ref="mainMenu" @toggleTheme="changeTheme">
     <RazionMenu v-if="hasPermissions" />
   </MainMenu>
-  <Header v-if="store.userProfile" @toggleTheme="changeTheme" />
+  <Header v-if="store.userProfile && !printingEstimative" @toggleTheme="changeTheme" />
   <RouterView />
   <Dialog ref="dialog" />
   <Message ref="message" />
 </template>
 
 <script setup>
-import { ref, onMounted, provide, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, provide, computed } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Header from '@/components/uiElements/Header.vue'
@@ -27,6 +27,7 @@ provide('Message', message)
 const prefersDark = ref(window.matchMedia("(prefers-color-scheme: dark)"))
 
 const hasPermissions = computed(() => store.userProfile?.role === 'owner' || store.userProfile?.role === 'admin')
+const printingEstimative = ref(false)
 
 onMounted(() => {
   if (!prefersDark.value.matches) {
@@ -39,11 +40,8 @@ onMounted(() => {
   })
 
   window.addEventListener('showMessage', showMessage)
-
-  window.addEventListener('logout', () => {
-    store.setUserProfile(null)
-    router.push({ name: 'Home' })
-  })
+  window.addEventListener('printingEstimative', updatePrintingEstimative)
+  window.addEventListener('logout', logout)
 
   let userProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null
   fetch(`${import.meta.env.VITE_BASE_URL}auth/access`, {
@@ -79,6 +77,21 @@ function changeTheme() {
 function showMessage(msg) {
   message.value.show(msg.detail)
 }
+
+function updatePrintingEstimative(e) {
+  printingEstimative.value = e.detail
+}
+
+function logout() {
+  store.setUserProfile(null)
+  router.push({ name: 'Home' })
+}
+
+onBeforeUnmount(() => {
+  window.removeEventListener('showMessage', showMessage)
+  window.removeEventListener('printingEstimative', updatePrintingEstimative)
+  window.removeEventListener('logout', logout)
+})
 </script>
 
 <style scoped></style>

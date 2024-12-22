@@ -119,7 +119,7 @@ defineExpose({
 	border-radius: .3rem .3rem 0 0;
 	background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg1-transparent));
 	box-shadow: var(--light-box-shadow);
-	z-index: 1;
+	z-index: 2;
 }
 
 .light-theme .modal .modalHeader {
@@ -166,7 +166,7 @@ defineExpose({
 	place-items: center;
 	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
 	color: var(--danger-light);
-	z-index: 1;
+	z-index: 2;
 }
 
 .light-theme .closeModalBt {

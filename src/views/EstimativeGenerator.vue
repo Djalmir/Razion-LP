@@ -1,6 +1,17 @@
 <template>
-  <section>
-    <div style="display: flex; gap: 7px;">
+  <section ref="section">
+    <div id="tools">
+
+      <Button class="secondary headerButton" @click="clearEstimative">
+        <Icon class="file" :size="1.5" />
+        <b>Novo</b>
+      </Button>
+
+      <Button class="secondary headerButton" @click="openFilePicker">
+        <Icon class="folder" :size="1.5" />
+        <b>Abrir</b>
+      </Button>
+
       <Button class="primary headerButton" @click="saveNewEstimative">
         <Icon class="plus" :size="1.5" />
         <b>Salvar como...</b>
@@ -11,10 +22,11 @@
         <b>Salvar</b>
       </Button>
 
-      <Button class="secondary headerButton">
-        <Icon class="folder" :size="1.5" />
-        <b>Abrir</b>
+      <Button class="danger headerButton" @click="deleteEstimative" v-if="estimative.value._id">
+        <Icon class="trash" :size="1.5" />
+        <b>Excluir</b>
       </Button>
+
       <Button class="secondary headerButton" style="margin-left: auto;" @click="print">
         <Icon class="printer" :size="1.5" />
         <b>Imprimir</b>
@@ -35,7 +47,7 @@
         </header>
         <sup style="margin: 17px 0 7px auto; display: block; width: fit-content; padding: 0 7px; font-size: .8rem;">{{ new Date().toLocaleDateString('pt-BR') }}</sup>
         <h1>Orçamento de serviços</h1>
-        <Table ref="table" class="table" templateColumns="minmax(220px, 1fr) 99px 35px" :scrollbars="false">
+        <Table ref="table" class="table" templateColumns="minmax(220px, 1fr) 130px 35px" :scrollbars="false">
           <template #headingRow>
             <div>
               <Th title="Descrição" />
@@ -50,9 +62,9 @@
               <Td v-else>{{ service.description }}</Td>
 
               <div style="padding: 3px;" v-if="editingRow == index">
-                <Input class="input" v-model="service.value" @keypress.enter="saveEdition" @keydown.esc="cancelEdition" />
+                <Input class="input" type="number" v-model="service.value" @input="updateTotalPrice" @keypress.enter="saveEdition" @keydown.esc="cancelEdition" />
               </div>
-              <Td v-else>R${{ Number(service.value).toFixed(2) }}</Td>
+              <Td v-else>R$ {{ Number(service.value).toFixed(2) }}</Td>
 
               <div v-if="editingRow == index" class="rowButtons">
                 <Button class="secondary rowButton" @click.stop="cancelEdition">
@@ -70,7 +82,7 @@
                 <b style="padding-right: 7px;">Total:</b>
               </div>
               <div style="padding: 17px 0;">
-                <span>R${{ estimative.value.totalValue.toFixed(2) }}</span>
+                <span>R$ {{ Number(estimative.value.totalValue).toFixed(2) }}</span>
               </div>
               <div></div>
             </div>
@@ -83,11 +95,13 @@
       Adicionar serviço
     </Button>
   </section>
+  <FilePicker ref="filePicker" @openFile="openFile" />
 </template>
 
 <script setup>
 import { ref, reactive, computed, inject } from 'vue'
 import { useStore } from '@/stores/main'
+import { dispatchEvent } from '@/utils/events'
 
 import Button from '@/components/uiElements/Button.vue'
 import Icon from '@/components/uiElements/Icon.vue'
@@ -96,14 +110,17 @@ import Input from '@/components/formElements/Input.vue'
 import Table from '@/components/uiElements/Table.vue'
 import Th from '@/components/componentElements/Table/Th.vue'
 import Td from '@/components/componentElements/Table/Td.vue'
+import FilePicker from '@/components/viewElements/EstimativeGenerator/FilePicker.vue'
 import estimativeApi from '@/services/estimativeApi'
 
 const store = useStore()
 const darkTheme = computed(() => store.darkTheme)
 const Dialog = inject('Dialog').value
 const Message = inject('Message').value
+const section = ref()
 const estimativeWrapper = ref()
 const table = ref()
+const filePicker = ref()
 
 const estimative = reactive({
   value: {
@@ -116,6 +133,32 @@ const estimative = reactive({
 const editingRow = ref(null)
 const oldValues = ref({ description: '', value: '' })
 const mouseIn = ref(-1)
+
+async function clearEstimative() {
+  if (!estimative.value.services.length)
+    return
+  else if (await Dialog.confirm(/*html*/`<b>Tem certeza que deseja iniciar um novo orçamento?</b><p style="margin-top: 7px;">Alterações não salvas serão perdidas.</p>`)) {
+    estimative.value = {
+      _id: null,
+      name: '',
+      services: [],
+      totalValue: 0
+    }
+  }
+}
+
+async function openFilePicker() {
+  if (!estimative.value.services.length)
+    filePicker.value.show()
+  else if (await Dialog.confirm(/*html*/`<b>Tem certeza que deseja abrir outro orçamento?</b><p style="margin-top: 7px;">Alterações não salvas serão perdidas.</p>`)) {
+    filePicker.value.show()
+  }
+}
+
+function openFile(file) {
+  editingRow.value = null
+  estimative.value = file
+}
 
 function addRow() {
   estimative.value.services.push({ description: '', value: 0 })
@@ -135,6 +178,7 @@ function setEditingRow(index) {
 function cancelEdition() {
   estimative.value.services[editingRow.value] = oldValues.value
   editingRow.value = null
+  updateTotalPrice()
 }
 
 function saveEdition() {
@@ -159,56 +203,88 @@ async function saveNewEstimative() {
   if (name) {
     estimative.value.name = name
     estimativeApi.create(estimative.value)
-      .then((res) => {
-        estimative.value._id = res.data
-        Message.show({ success: 'Orçamento salvo com sucesso!' })
+      .then(async (res) => {
+        if (res.data.existingEstimative) {
+          if (await Dialog.confirm(/*html*/`<b>Já existe um orçamento com esse nome.</b><p style="margin-top: 7px;">Deseja sobreescrever?</p>`)) {
+            estimative.value._id = res.data.existingEstimative._id
+            overwriteEstimative()
+          }
+        }
+        else {
+          estimative.value._id = res.data._id
+          Message.show({ success: 'Orçamento salvo com sucesso!' })
+        }
       })
   }
 }
 
 async function saveEstimative() {
-  if (await Dialog.confirm('<b>Tem certeza que deseja sobreescrever o orcamento?</b>')) {
-    console.log('sobreescrever')
+  if (await Dialog.confirm(/*html*/`<b>Tem certeza que deseja sobreescrever o orçamento?</b>`)) {
+    overwriteEstimative()
   }
 }
 
-async function removeEstimative() {
-  if (await Dialog.confirm('Tem certeza que deseja remover este orcamento?')) {
-    console.log('remover')
+function overwriteEstimative() {
+  estimativeApi.update(estimative.value._id, estimative.value)
+    .then(() => {
+      Message.show({ success: 'Orçamento salvo com sucesso!' })
+    })
+}
+
+async function deleteEstimative() {
+  if (await Dialog.confirm(/*html*/`<b>Tem certeza que deseja remover este orçamento?</b><p style="margin-top: 7px;">Esta ação não poderá ser desfeita.</p>`)) {
+    estimativeApi.delete(estimative.value._id)
+      .then(() => {
+        estimative.value = {
+          _id: null,
+          name: '',
+          services: [],
+          totalValue: 0
+        }
+        Message.show({ success: 'Orçamento removido com sucesso!' })
+      })
   }
 }
 
 function print() {
+  dispatchEvent('printingEstimative', true)
+
   estimativeWrapper.value.style = `
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
-    max-width: 100vw;
-    height: 100svh;
+    max-width: unset;
+    height: 100vh;
+    margin: 0;
     z-index: 9999;
-    background: linear-gradient(145deg, ${darkTheme.value ? 'var(--dark-bg3), var(--dark-bg1)' : 'var(--light-bg3), var(--light-bg1)'});
   `
   setTimeout(() => {
     window.print()
     setTimeout(() => {
+      dispatchEvent('printingEstimative', false)
       estimativeWrapper.value.style = ''
     }, 0)
   }, 0)
-
 }
 </script>
 
 <style scoped>
 section {
   width: 100%;
-  margin: 46px auto 0;
-  padding: 7px;
+  padding: 51px 0 0;
   gap: 17px;
 }
 
+#tools {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  padding: 17px 17px 0;
+}
+
 Button.headerButton {
-  padding: 7px;
+  padding: 3px 7px;
   display: flex;
   gap: 7px;
   align-items: center;
@@ -236,6 +312,7 @@ Button.headerButton {
 
 #estimative header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 17px;
   gap: 17px;
@@ -278,6 +355,8 @@ sup {
 .rowButton {
   padding: 3px;
   aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
 }
 
 .addRowButton {
@@ -286,8 +365,7 @@ sup {
   justify-content: center;
   gap: 7px;
   margin: 17px auto 333px;
-  width: 25vw;
-  padding: 3px;
+  padding: 3px 17px;
   font-size: 1rem;
 }
 </style>

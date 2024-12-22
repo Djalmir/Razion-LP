@@ -34,7 +34,7 @@ function signup(data) {
 section {
   position: absolute;
   inset: 47px 0 0 0;
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   padding: 7px;
   gap: 17px;

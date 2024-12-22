@@ -1,6 +1,5 @@
 <template>
 	<Modal ref="modal" @close="close">
-
 		<UserBadge :user="user" :size="3" class="userBadge" @imgClicked="profilePictureModal.show(user)" />
 
 		<div class="info">

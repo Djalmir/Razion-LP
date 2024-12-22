@@ -69,8 +69,6 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
-
-	--template-columns: repeat(10, 1fr);
 }
 
 * {

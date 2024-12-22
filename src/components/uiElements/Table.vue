@@ -40,7 +40,7 @@ const themeObserver = ref(null)
 const renderingTable = ref(true)
 const autoUpdating = ref(false)
 const windowHeight = ref(window.innerHeight)
-const bounding = computed(() => { return document.querySelector('.table').getBoundingClientRect() })
+const bounding = computed(() => { return tableWrapper.value.getBoundingClientRect() })
 const rowsWrapperHeight = computed(() => {
 	return windowHeight.value - bounding.value.top - 62 + 'px'
 })
@@ -49,7 +49,7 @@ const emit = defineEmits(['nextPage'])
 
 onMounted(() => {
 	if (props.templateColumns) {
-		document.documentElement.style.setProperty('--template-columns', props.templateColumns)
+		tableWrapper.value.style.setProperty('--template-columns', props.templateColumns)
 	}
 
 	initObserver()
@@ -73,7 +73,6 @@ onMounted(() => {
 			tableWrapper.value.style.height = rowsWrapperHeight.value
 
 			rows.value.style.paddingBottom = '25vh'
-			console.log(tableWrapper.value)
 		}
 	}, 0)
 })
@@ -187,13 +186,13 @@ function refresh() {
 }
 
 function setLoading(loading) {
-	if (loading.detail)
-		renderingTable.value = true
+	renderingTable.value = loading.detail
 }
 
 onBeforeUnmount(() => {
 	observer.value?.disconnect()
 	themeObserver.value?.disconnect()
+	window.removeEventListener('setLoading', setLoading)
 })
 
 defineExpose({

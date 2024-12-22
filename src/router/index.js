@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
   if (store.showingMenu)
     store.toggleMenu()
   to.authRequired = routes.find((route) => route.name == to.name).authRequired
-  if (to.authRequired && !allowedRoles.includes(store.userProfile.role))
+  if (to.authRequired && !allowedRoles.includes(store.userProfile?.role))
     next({ name: 'Home' })
   else
     next()

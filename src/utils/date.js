@@ -11,7 +11,7 @@ export function dateToStr(date) {
 }
 
 export function getDate(date) {
-	return new Date(date).toLocaleDateString()
+	return new Date(date).toLocaleDateString('pr-BR')
 }
 
 export function getTime(date) {

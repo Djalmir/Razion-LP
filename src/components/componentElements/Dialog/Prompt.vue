@@ -1,10 +1,10 @@
 <template>
-  <div class="messageDialog" @focus="confirmBtFocus" @keydown.escape="$emit('close')">
+  <div class="messageDialog" @focus="inputFocus" @keydown.escape="$emit('close')">
     <Button class="closeBt" @click="$emit('close')">
       <Icon class="x" :size="1.5" />
     </Button>
     <section ref="messageSection">
-      <Input ref="input" class="input" v-model="answer" :label="inputLabel"/>
+      <Input ref="input" class="input" v-model="answer" :label="inputLabel" @keypress.enter="$emit('accept', answer)" @keypress.escape="$emit('close')" />
     </section>
     <footer>
       <Button class="confirmBt" @click="$emit('accept', answer)">Ok</Button>
@@ -20,6 +20,7 @@ import Icon from '@/components/uiElements/Icon.vue'
 import Input from '@/components/formElements/Input.vue'
 
 const props = defineProps(['message'])
+const input = ref()
 const inputLabel = ref('')
 const answer = ref('')
 const msg = computed(() => {
@@ -34,8 +35,8 @@ onMounted(() => {
   inputLabel.value = msg.value
 })
 
-function confirmBtFocus() {
-  document.querySelector('.confirmBt').focus()
+function inputFocus() {
+  input.value.$el.focus()
 }
 </script>
 
