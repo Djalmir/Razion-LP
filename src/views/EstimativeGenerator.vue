@@ -45,7 +45,7 @@
             </sup>
           </div>
         </header>
-        <sup style="margin: 17px 0 7px auto; display: block; width: fit-content; padding: 0 7px; font-size: .8rem;">{{ new Date().toLocaleDateString('pt-BR') }}</sup>
+        <sup style="margin: 17px 0 7px auto; display: block; width: fit-content; padding: 0 7px; font-size: .8rem;">{{ estimativeDate }}</sup>
         <h1>Orçamento de serviços</h1>
         <Table ref="table" class="table" templateColumns="minmax(220px, 1fr) 130px 35px" :scrollbars="false">
           <template #headingRow>
@@ -112,6 +112,7 @@ import Th from '@/components/componentElements/Table/Th.vue'
 import Td from '@/components/componentElements/Table/Td.vue'
 import FilePicker from '@/components/viewElements/EstimativeGenerator/FilePicker.vue'
 import estimativeApi from '@/services/estimativeApi'
+import { getDate } from '@/utils/date'
 
 const store = useStore()
 const darkTheme = computed(() => store.darkTheme)
@@ -129,6 +130,12 @@ const estimative = reactive({
     services: [],
     totalValue: 0,
   }
+})
+const estimativeDate = computed(() => {
+  if (estimative.value._id)
+    return getDate(estimative.value.updatedAt)
+  else
+    return new Date().toLocaleDateString('pt-BR')
 })
 const editingRow = ref(null)
 const oldValues = ref({ description: '', value: '' })
