@@ -98,7 +98,7 @@ nav {
 	align-items: center;
 }
 
-.selector {
+nav .selector {
 	flex: 1;
 	max-width: 240px;
 	display: flex;
@@ -113,35 +113,35 @@ nav {
 	filter: brightness(.8);
 }
 
-.light-theme .selector {
+.light-theme nav .selector {
 	color: var(--light-font1);
 	background: var(--light-bg3);
 }
 
-.selector:hover {
+nav .selector:hover {
 	filter: brightness(.9);
 	color: var(--dark-font1);
 	z-index: 1;
 }
 
-.light-theme .selector:hover {
+.light-theme nav .selector:hover {
 	color: var(--light-font1);
 }
 
-.selector:active {
+nav .selector:active {
 	filter: brightness(.85);
 	box-shadow: none;
 }
 
-.selector.active,
-.selector.active:hover {
+nav .selector.active,
+nav .selector.active:hover {
 	color: var(--primary);
 	position: relative;
 	filter: brightness(1);
 	z-index: 2;
 }
 
-.selector.active:before {
+nav .selector.active:before {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -154,11 +154,11 @@ nav {
 	pointer-events: none;
 }
 
-.light-theme .selector.active:before {
+.light-theme nav .selector.active:before {
 	box-shadow: 0 5px 0 0 var(--light-bg3);
 }
 
-.selector.active:after {
+nav .selector.active:after {
 	content: '';
 	position: absolute;
 	right: 0;
@@ -171,7 +171,7 @@ nav {
 	pointer-events: none;
 }
 
-.light-theme .selector.active:after {
+.light-theme nav .selector.active:after {
 	box-shadow: 0 5px 0 0 var(--light-bg3);
 }
 
