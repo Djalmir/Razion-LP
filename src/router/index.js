@@ -11,6 +11,7 @@ const routes = [
   },
   {
     path: '/auth',
+    alias: '/auth/signup',
     name: 'Auth',
     component: () => import('../views/Auth.vue')
   },
@@ -18,13 +19,13 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
-    authRequired: true
+    authRequired: true,
+    onlyAdmin: true
   },
   {
-    path: '/estimativeGenerator',
+    path: '/estimativeGenerator/:estimativeId?',
     name: 'EstimativeGenerator',
-    component: () => import('../views/EstimativeGenerator.vue'),
-    authRequired: true
+    component: () => import('../views/EstimativeGenerator.vue')
   },
   {
     path: '/profile',
@@ -36,7 +37,8 @@ const routes = [
     path: '/svgLib',
     name: 'SvgLib',
     component: () => import('@/views/SvgLibViewer.vue'),
-    authRequired: true
+    authRequired: true,
+    onlyAdmin: true
   },
 
   {
@@ -57,7 +59,10 @@ router.beforeEach((to, from, next) => {
   if (store.showingMenu)
     store.toggleMenu()
   to.authRequired = routes.find((route) => route.name == to.name).authRequired
-  if (to.authRequired && !allowedRoles.includes(store.userProfile?.role))
+  to.onlyAdmin = routes.find((route) => route.name == to.name).onlyAdmin
+  if (to.authRequired && !store.userProfile)
+    next({ name: 'Home' })
+  else if(!allowedRoles.includes(store.userProfile?.role) && to.onlyAdmin)
     next({ name: 'Home' })
   else
     next()

@@ -6,14 +6,20 @@
 		<div id="mainMenu" v-if="showing">
 			<div id="mainMenuInnerWrapper">
 				<nav v-if="showDefaultMenu" class="topMenu">
-					<MenuItem v-for="item in topMenuItems" :vIf="item.vIf" :key="item.label" v-model="item.vModel" :image="item.image" :icon="item.icon" :label="item.label" :action="item.action" :pathName="item.pathName" :submenu="item.submenu" :style="item.style" :rightComponent="item.rightComponent" :leftIcon="item.leftIcon" :rightIcon="item.rightIcon" />
+					<MenuItem v-for="item in topMenuItems" :vIf="item.vIf" :key="item.label" v-model="item.vModel"
+						:image="item.image" :icon="item.icon" :label="item.label" :action="item.action" :pathName="item.pathName"
+						:submenu="item.submenu" :style="item.style" :rightComponent="item.rightComponent" :leftIcon="item.leftIcon"
+						:rightIcon="item.rightIcon" />
 				</nav>
 				<nav id="appMenu">
 					<slot>
 					</slot>
 				</nav>
-				<nav v-if="showDefaultMenu && userProfile" class="bottomMenu">
-					<MenuItem v-for="item in bottomMenuItems" :vIf="item.vIf" :key="item.label" v-model="item.vModel" :image="item.image" :icon="item.icon" :label="item.label" :action="item.action" :pathName="item.pathName" :submenu="item.submenu" :style="item.style" :rightComponent="item.rightComponent" :leftIcon="item.leftIcon" :rightIcon="item.rightIcon" />
+				<nav v-if="showDefaultMenu" class="bottomMenu">
+					<MenuItem v-for="item in bottomMenuItems" :vIf="item.vIf" :key="item.label" v-model="item.vModel"
+						:image="item.image" :icon="item.icon" :label="item.label" :action="item.action" :pathName="item.pathName"
+						:submenu="item.submenu" :style="item.style" :rightComponent="item.rightComponent" :leftIcon="item.leftIcon"
+						:rightIcon="item.rightIcon" />
 				</nav>
 			</div>
 		</div>
@@ -35,14 +41,7 @@ const props = defineProps({
 	}
 })
 
-const storeUserProfile = computed(() => {
-	return store.userProfile
-})
-watch(storeUserProfile, () => {
-	userProfile.value = storeUserProfile.value
-})
-
-const userProfile = ref(store.userProfile)
+const userProfile = computed(() => store.userProfile)
 
 const storeDarkTheme = computed(() => {
 	return store.darkTheme
@@ -58,8 +57,8 @@ const topMenuItems = computed(() => {
 	return [
 		{
 			vIf: userProfile.value,
-			label: store.userProfile?.name || '',
-			image: store.userProfile?.profilePicture || '',
+			label: userProfile.value?.name || '',
+			image: userProfile.value?.profilePicture || '',
 			icon: 'user',
 			submenu: [
 				{
@@ -94,18 +93,30 @@ const settingsMenu = {
 	]
 }
 
-const bottomMenuItems = [
-	{
-		label: 'Sair',
-		icon: 'logout',
-		action: () => {
-			dispatchEvent('logout')
+const bottomMenuItems = computed(() => {
+	return [
+		{
+			vIf: userProfile.value,
+			label: 'Sair',
+			icon: 'logout',
+			action: () => {
+				dispatchEvent('logout')
+			},
+			style: {
+				textAlign: 'center',
+			}
 		},
-		style: {
-			textAlign: 'center',
+		{
+			vIf: !userProfile.value,
+			label: 'Fazer Login',
+			pathName: 'Auth',
+			icon: 'login',
+			style: {
+				textAlign: 'center'
+			}
 		}
-	}
-]
+	]
+})
 
 const showing = computed(() => {
 	return store.showingMenu

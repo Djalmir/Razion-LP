@@ -1,33 +1,29 @@
 <template>
-  <span v-bind="$attrs" :class="$attrs.class">
-    <SpinnerText>
-      <abbr :title="abbr">
-        <slot></slot>
-      </abbr>
-    </SpinnerText>
-  </span>
+  <p v-bind="$attrs" :class="$attrs.class" :title="title">
+    <slot></slot>
+  </p>
 </template>
 
 <script setup>
-import SpinnerText from '@/components/uiElements/SpinnerText.vue'
 const props = defineProps({
-  abbr: {
+  title: {
     type: String
   }
 })
 </script>
 
 <style scoped>
-span {
+p {
   white-space: nowrap;
   padding: 7px;
+  white-space: pre-wrap;
 }
 
-span:first-of-type {
+p:first-of-type {
   padding-left: 17px;
 }
 
-span:last-of-type {
+p:last-of-type {
   padding-right: 17px;
 }
 

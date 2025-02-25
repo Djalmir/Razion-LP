@@ -1,8 +1,9 @@
 <template>
-  <MainMenu v-if="store.userProfile" ref="mainMenu" @toggleTheme="changeTheme">
+  <MainMenu ref="mainMenu" @toggleTheme="changeTheme">
     <RazionMenu v-if="hasPermissions" />
+    <MenuItem pathName="EstimativeGenerator" label="Orçamentos" icon="file-text" />
   </MainMenu>
-  <Header v-if="store.userProfile && !printingEstimative" @toggleTheme="changeTheme" />
+  <Header v-if="!printingEstimative" @toggleTheme="changeTheme" />
   <RouterView />
   <Dialog ref="dialog" />
   <Message ref="message" />
@@ -15,6 +16,7 @@ import { useStore } from '@/stores/main'
 import Header from '@/components/uiElements/Header.vue'
 import MainMenu from '@/components/uiElements/MainMenu.vue'
 import RazionMenu from '@/components/uiElements/RazionMenu.vue'
+import MenuItem from '@/components/uiElements/MenuItem.vue'
 import Dialog from '@/components/uiElements/Dialog.vue'
 import Message from '@/components/uiElements/Message.vue'
 

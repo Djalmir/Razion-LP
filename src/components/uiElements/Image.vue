@@ -1,6 +1,6 @@
 <template>
 	<div :class="`${rounded ? 'rounded' : ''}`" v-bind="$attrs">
-		<img :src="props.src" :alt="alt">
+		<img :src="source" :alt="alt">
 	</div>
 </template>
 
@@ -26,9 +26,8 @@ const props = defineProps({
 	}
 })
 
-const size = computed(() => {
-	return props.size + 'em'
-})
+const source = computed(() => props.src)
+const size = computed(() => props.size + 'em')
 
 </script>
 

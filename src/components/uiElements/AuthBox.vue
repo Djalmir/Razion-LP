@@ -19,7 +19,7 @@ const route = useRoute()
 const hasAccount = ref(true)
 
 onBeforeMount(() => {
-	if (route.path === '/signup')
+	if (route.path === '/auth/signup')
 		hasAccount.value = false
 })
 
@@ -29,7 +29,9 @@ const emit = defineEmits(['loggedIn', 'signedUp'])
 <style scoped>
 .authCube {
 	position: relative;
-	width: 100%;
+	width: 90vw;
+	max-width: 480px;
+	margin: 0 auto;
 	perspective: 1000px;
 	display: flex;
 	gap: 0;

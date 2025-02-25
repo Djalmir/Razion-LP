@@ -1,6 +1,5 @@
 <template>
   <MenuItem pathName="Dashboard" label="Dashboard" icon="bar-chart-2" />
-  <MenuItem pathName="EstimativeGenerator" label="Orçamentos" icon="file-text" />
   <MenuItem pathName="SvgLib" label="Biblioteca SVG" icon="image" />
 </template>
 

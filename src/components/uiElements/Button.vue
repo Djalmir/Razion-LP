@@ -90,19 +90,8 @@ button.flat {
 	color: var(--light-font2);
 }
 
-/* .light-theme button {
-	background-color: var(--secondary);
-	color: var(--dark-font1);
-	box-shadow: var(--light-box-shadow);
-}
-
-.light-theme button:hover {
-	filter: brightness(1.2);
-	box-shadow: var(--hover-light-box-shadow);
-}
-
-.light-theme button:active {
-	filter: brightness(.8);
-	box-shadow: var(--inset-light-box-shadow);
-} */
-</style>./Icon.vue./Icon.vue./Icon.vue./Icon.vue
+button.flat:hover:not(:disabled),
+button.flat:active:not(:disabled) {
+	box-shadow: none;
+} 
+</style>

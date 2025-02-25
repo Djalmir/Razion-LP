@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, inject, computed} from 'vue'
+import { ref, inject, computed } from 'vue'
 import Button from '@/components/uiElements/Button.vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
@@ -32,7 +32,16 @@ const message = inject('Message').value
 
 const modal = ref()
 
+const props = defineProps({
+	autoPadding: {
+		type: Boolean,
+		default: true
+	}
+})
+
 const sectionPadding = computed(() => {
+	if (!props.autoPadding)
+		return '0'
 	let showingHeader = modal.value?.querySelector('.modalHeader').children.length
 	let showingFooter = modal.value?.querySelector('.modalFooter').children.length
 	return `${showingHeader ? '51px' : '17px'} 17px ${showingFooter ? '69px' : '17px'} 17px`

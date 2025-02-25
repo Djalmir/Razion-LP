@@ -29,7 +29,12 @@ const props = defineProps({
 	scrollbars: {
 		type: Boolean,
 		default: true
+	},
+	growOnHover: {
+		type: Boolean,
+		default: false
 	}
+
 })
 
 const tableWrapper = ref(null)
@@ -126,7 +131,8 @@ function handleChildrenChanged() {
 		row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
 		row.onmouseenter = () => {
 			row.style.filter = 'brightness(1.2)'
-			row.style.padding = '17px 0'
+			if (props.growOnHover)
+				row.style.padding = '17px 0'
 		}
 		row.onmousedown = () => {
 			row.style.filter = 'brightness(.7)'

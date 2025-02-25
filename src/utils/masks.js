@@ -15,3 +15,19 @@ export function dateMask(e) {
 		.replace(/(\d{4})(\d)/, '$1')
 	e.target.value = value
 }
+
+export function cpfCnpjMask(e) {
+	e.target.maxLength = 18
+	let value = e.target.value.length <= 14 ?
+		e.target.value.replace(/\D/g, '')
+			.replace(/^(\d{3})(\d)/, '$1.$2')
+			.replace(/(\d{3})(\d)/, '$1.$2')
+			.replace(/(\d{3})(\d)/, '$1-$2')
+		:
+		e.target.value.replace(/\D/g, '')
+			.replace(/^(\d{2})(\d)/, '$1.$2')
+			.replace(/(\d{3})(\d)/, '$1.$2')
+			.replace(/(\d{3})(\d)/, '$1/$2')
+			.replace(/(\d{4})(\d)/, '$1-$2')
+	e.target.value = value
+}

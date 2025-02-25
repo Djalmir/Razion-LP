@@ -1,6 +1,7 @@
 <template>
 	<transition-group tag="div" class="messageWrapper" name="messageAnimation">
-		<div v-for="message in messages" ref="msgsRef" :key="message" :class="`${message.success ? 'success' : 'error'} message`">
+		<div v-for="message in messages" ref="msgsRef" :key="message"
+			:class="`${message.success ? 'success' : 'error'} message`">
 			<slot>
 				{{ message.success || message.error }}
 			</slot>
@@ -24,12 +25,19 @@ onMounted(() => {
 })
 
 function show(msg) {
+	function newTimer(timerMsg) {
+		return setTimeout(() => {
+			closeMessage(timerMsg)
+		}, 10000)
+	}
 	let alertingMessages = messages.value.filter(m => m.field == msg.field && (m.success == msg.success || m.error == msg.error))
 	alertingMessages.map((m) => {
 		m.alert()
+		clearTimeout(m.timer)
+		m.timer = newTimer(m)
 	})
 	if (!alertingMessages.length) {
-		messages.value.push({
+		let newMessage = {
 			...msg,
 			alert: () => {
 				let alertingMessage = msgsRef.value.find(m => m.innerText == msg.success || m.innerText == msg.error)
@@ -44,12 +52,10 @@ function show(msg) {
 						navigator.vibrate([100, 10, 150])
 				}
 			}
-		})
-
+		}
 		//autoclose after 10 seconds
-		setTimeout(() => {
-			closeMessage(messages.value[messages.value.length - 1])
-		}, 10000)
+		newMessage.timer = newTimer(newMessage)
+		messages.value.push(newMessage)
 	}
 }
 

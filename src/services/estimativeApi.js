@@ -48,9 +48,16 @@ estimativeApi.interceptors.response.use((res) => {
 })
 
 const configs = () => {
-  const token = sessionStorage.getItem('userProfile') ?
-    JSON.parse(sessionStorage.getItem('userProfile')).token :
-    JSON.parse(localStorage.getItem('userProfile')).token
+  let sessionStr = sessionStorage.getItem('userProfile')
+  let localStr = localStorage.getItem('userProfile')
+
+  if (!sessionStr && !localStr) {
+    dispatchEvent('showMessage', { error: 'Você precisa estar logado para finalizar essa ação.' })
+    throw new Error('You need to be logged in to finish this action.')
+  }
+  const token = sessionStr ?
+    JSON.parse(sessionStr).token :
+    JSON.parse(localStr).token
   return {
     headers: {
       Authorization: token
@@ -59,14 +66,17 @@ const configs = () => {
 }
 
 export default {
+  get(id) {
+    return estimativeApi.get(`/razion/estimatives/get/${id}`)
+  },
   list() {
     return estimativeApi.get('/razion/estimatives/list', configs())
   },
   create(data) {
-    return estimativeApi.post('/razion/estimatives/create', data, configs())
+    return estimativeApi.post('/razion/estimatives/create', data, { headers: { ...configs().headers, 'Content-Type': 'multipart/form-data' } })
   },
   update(id, data) {
-    return estimativeApi.put(`/razion/estimatives/update/${id}`, data, configs())
+    return estimativeApi.put(`/razion/estimatives/update/${id}`, data, { headers: { ...configs().headers, 'Content-Type': 'multipart/form-data' } })
   },
   delete(id) {
     return estimativeApi.delete(`/razion/estimatives/delete/${id}`, configs())

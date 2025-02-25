@@ -4,17 +4,20 @@
 			{{ label }}
 		</span>
 		<div class="inputWrapper">
-			<Icon v-if="showLeftIcon" :class="`${leftIcon.class} icon`" @click="leftIcon.action" :size="leftIcon.size || 1.2" :style="leftIcon.style" :bold="leftIcon.bold"></Icon>
-			<input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
-			<Icon v-if="showRightIcon" :class="`${rightIcon.class} icon rightIcon`" @click="rightIcon.action" :size="rightIcon.size || 1.2" :style="rightIcon.style" :bold="rightIcon.bold"></Icon>
+			<Icon v-if="showLeftIcon" :class="`${leftIcon.class} icon`" @click="leftIcon.action" :size="leftIcon.size || 1.2"
+				:style="leftIcon.style" :bold="leftIcon.bold"></Icon>
+			<input ref="input" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
+			<Icon v-if="showRightIcon" :class="`${rightIcon.class} icon rightIcon`" @click="rightIcon.action"
+				:size="rightIcon.size || 1.2" :style="rightIcon.style" :bold="rightIcon.bold"></Icon>
 		</div>
 	</label>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import Icon from '@/components/uiElements/Icon.vue'
 const props = defineProps(['modelValue', 'label', 'leftIcon', 'rightIcon'])
+const input = ref()
 const showLeftIcon = computed(() => {
 	return props.leftIcon && (props.leftIcon.vIf != undefined ? props.leftIcon.vIf : true)
 })
@@ -26,6 +29,14 @@ const showRightIcon = computed(() => {
 })
 const rightPadding = computed(() => {
 	return props.rightIcon ? '33px' : '7px'
+})
+
+onMounted(() => {
+	if (input.value.hasAttribute('autofocus')) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
 })
 </script>
 

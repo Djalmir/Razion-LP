@@ -3,12 +3,22 @@
 		<span v-if="label">
 			{{ label }}
 		</span>
-		<textarea :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
+		<textarea ref="textarea" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
 	</label>
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
 const props = defineProps(['modelValue', 'label'])
+const textarea = ref()
+
+onMounted(() => {
+	if (textarea.value.hasAttribute('autofocus')) {
+		setTimeout(() => {
+			textarea.value.focus()
+		}, 0)
+	}
+})
 </script>
 
 <style scoped>
@@ -60,8 +70,7 @@ textarea:-webkit-autofill:focus {
 }
 
 textarea:disabled,
-textarea.disabled
- {
+textarea.disabled {
 	background: transparent;
 	box-shadow: none;
 }

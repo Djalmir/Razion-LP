@@ -1,6 +1,6 @@
 <template>
   <section>
-    <AuthBox @loggedIn="login" @signedUp="signup" style="margin-top: 133px" />
+    <AuthBox @loggedIn="login" @signedUp="signup" />
   </section>
 </template>
 
@@ -32,11 +32,11 @@ function signup(data) {
 
 <style scoped>
 section {
-  position: absolute;
-  inset: 47px 0 0 0;
   width: 90%;
-  margin: 0 auto;
-  padding: 7px;
-  gap: 17px;
+	margin: 0 auto;
+	display: grid;
+	place-items: center;
+	gap: 17px;
+  padding: 133px 0;
 }
 </style>

@@ -19,7 +19,7 @@
       </span>
       <Input class="searchInput" placeholder="Pesquisar" v-model="search" :leftIcon="{ class: 'search' }" :rightIcon="{ class: 'x', vIf: search, action: () => search = '' }" />
     </div>
-    <Table class="table" ref="table" templateColumns="minmax(171px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage">
+    <Table class="table" ref="table" templateColumns="minmax(171px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage" :growOnHover="true">
       <template #headingRow>
         <div class="titleRow">
           <Th title="Data" sortValue="date" @click="setSortBy('date')" :showChevron="sortBy == 'date'" :chevronRotation="sortChevronRotation" />
@@ -39,7 +39,7 @@
           <Td>{{ access.app }}</Td>
           <Td>{{ access.ip }}</Td>
           <Td>{{ access.user?.name || '-' }}</Td>
-          <Td :abbr="access.browser">{{ getBrowser(access.browser) }}</Td>
+          <Td :title="access.browser">{{ getBrowser(access.browser) }}</Td>
           <Td>{{ access.language }}</Td>
           <Td>{{ access.geolocation.city }}</Td>
           <Td>{{ access.geolocation.region }}</Td>
