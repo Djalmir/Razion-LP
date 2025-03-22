@@ -56,7 +56,7 @@
       <Card v-for="contact in contacts" :title="contact.title" :description="contact.description" :src="contact.src" :alt="contact.alt" :url="contact.url" :tagText="contact.tagText" :tagClass="contact.tagClass" />
     </div>
   </section>
-  <Footer/>
+  <Footer />
 </template>
 
 <script setup>
@@ -74,7 +74,7 @@ const store = useStore()
 const AuthModal = inject('AuthModal').value
 
 const toolWingsWidth = ref(0)
-const tools = ref([
+const tools = computed(() => ([
   {
     src: '/src/assets/TaskBoard logo.svg', alt: 'TaskBoard logo',
     /*title: 'TaskBoard',*/ url: 'https://taskBoard.razion.app.br',
@@ -105,8 +105,8 @@ const tools = ref([
     description: 'Comunique-se com sua equipe em tempo real. Compartilhe informações, faça reuniões e colabore sem complicações.',
     tagText: 'Em breve'
   },
-])
-const services = ref([
+]))
+const services = computed(() => ([
   {
     src: '/src/assets/code.svg', alt: 'code',
     title: 'Desenvolvimento',
@@ -117,8 +117,8 @@ const services = ref([
     title: 'Consultoria',
     description: 'Consultoria técnica em projetos de sites e aplicativos web.'
   }
-])
-const contacts = ref([
+]))
+const contacts = computed(() => ([
   {
     src: '/src/assets/email.svg', alt: 'email',
     title: 'Email',
@@ -131,7 +131,7 @@ const contacts = ref([
     description: 'Entre em contato conosco pelo Telegram.',
     url: 'https://t.me/RazionSoftwares'
   }
-])
+]))
 
 onMounted(() => {
   updateWingsWidth()
@@ -207,7 +207,7 @@ section.toolsAndServices {
   /* min-height: 70vh; */
 }
 
-.light-theme section.toolsAndServices{
+.light-theme section.toolsAndServices {
   background: var(--light-bg2);
   color: var(--light-font2);
   filter: drop-shadow(0 0 7px #00000080);
