@@ -45,7 +45,7 @@ import DropDown from '@/components/uiElements/DropDown.vue'
 import { dispatchEvent } from '@/utils/events.js'
 
 const store = useStore()
-const userProfile = computed(() => { return store.userProfile })
+const userProfile = computed(() => store.userProfile)
 
 const title = computed(() => store.title)
 const loading = ref(false)
@@ -62,7 +62,7 @@ const emit = defineEmits(['toggleTheme'])
 
 const menuSVG = ref()
 const dropdown = ref()
-const dropdownList = ref([
+const dropdownList = computed(() => ([
 	{
 		label: 'Tema',
 		rightComponent: 'Switch',
@@ -74,7 +74,7 @@ const dropdownList = ref([
 		}
 	},
 	{
-		vIf: userProfile,
+		vIf: userProfile.value,
 		label: 'Sair',
 		rightComponent: 'Icon',
 		class: 'logout',
@@ -83,8 +83,19 @@ const dropdownList = ref([
 			dispatchEvent('logout')
 			document.body.click()
 		}
+	},
+	{
+		vIf: !userProfile.value,
+		label: 'Entrar',
+		rightComponent: 'Icon',
+		class: 'login',
+		size: 1.25,
+		action: () => {
+			dispatchEvent('showAuthModal')
+			document.body.click()
+		}
 	}
-])
+]))
 
 const showingMenu = computed(() => {
 	return store.showingMenu
@@ -110,6 +121,16 @@ watch(showingMenu, () => {
 	}
 })
 
+const props = defineProps({
+	autoHide: {
+		type: Boolean,
+		default: false
+	}
+})
+
+const headerTop = ref('0px')
+const lastScrollTop = ref(0)
+
 const headerPadding = computed(() => {
 	return showingMenu.value ? '7px 17px' : '7px 17px 7px 0'
 })
@@ -120,7 +141,20 @@ const headerTransition = computed(() => {
 
 onMounted(() => {
 	window.addEventListener('setLoading', setLoading)
+	document.addEventListener('scroll', updateHeaderPosition)
 })
+
+function updateHeaderPosition(e) {
+	const st = window.pageYOffset || document.documentElement.scrollTop
+	if (st > lastScrollTop.value && !showingMenu.value) {
+		if (props.autoHide)
+			headerTop.value = '-60px'
+	}
+	else {
+		headerTop.value = '0px'
+	}
+	lastScrollTop.value = st
+}
 
 function setLoading(e) {
 	loading.value = e.detail
@@ -132,6 +166,7 @@ function toggleMenu() {
 
 onBeforeUnmount(() => {
 	document.removeEventListener('setLoading', setLoading)
+	window.removeEventListener('scroll', updateHeaderPosition)
 })
 
 </script>
@@ -144,7 +179,8 @@ onBeforeUnmount(() => {
 	box-shadow: var(--dark-box-shadow);
 	z-index: 2;
 	position: fixed;
-	top: 0;
+	top: v-bind(headerTop);
+	transition: top .3s ease;
 	left: 0;
 	width: 100%;
 }

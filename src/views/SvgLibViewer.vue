@@ -130,7 +130,7 @@ h1 {
 	place-items: center;
 	padding: 12px;
 	gap: 7px;
-	background: var(--secondary-transparent);
+	background: var(--neutral-transparent);
 	color: var(--color-2);
 	fill: var(--color-2);
 	font-size: .9rem;

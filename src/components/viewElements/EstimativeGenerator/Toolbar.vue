@@ -80,7 +80,7 @@ Button.headerButton {
 }
 
 Button.headerButton:hover {
-  background: var(--secondary);
+  background: var(--neutral);
   color: var(--dark-font2);
   box-shadow: var(--dark-box-shadow) !important;
   grid-template-columns: 1.25em 81px;

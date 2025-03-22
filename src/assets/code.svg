@@ -1,0 +1,12 @@
+<svg viewBox="0 0 640 360" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- <rect x="7" y="7" rx="15" width="630" height="350" stroke="#6b6b6b" stroke-width="7" opacity=".3" fill="none"/>
+  <circle cx="23" cy="23" r="5" fill="#be0000" />
+  <circle cx="39" cy="23" r="5" fill="#ffaf00" />
+  <circle cx="55" cy="23" r="5" fill="#00921d" /> -->
+  <!-- <text x="320" y="180" style="font-family: Roboto; font-size: 150px; font-weight: bold; fill: #0059ff;" alignment-baseline="central" text-anchor="middle">
+    &lt;/&gt;
+  </text> -->
+  <path transform="translate(175, 37) scale(3)" fill="#0059ff" d="M 55.90625 25.9375 A 3.0003 3.0003 0 0 0 53.125 28.15625 L 41.125 70.15625 A 3.0003 3.0003 0 1 0 46.875 71.8125 L 58.875 29.8125 A 3.0003 3.0003 0 0 0 55.90625 25.9375 z M 33.8125 32.96875 A 3.0003 3.0003 0 0 0 32.5 33.40625 L 8.5 47.40625 A 3.0003 3.0003 0 0 0 8.5 52.59375 L 32.5 66.59375 A 3.0003 3.0003 0 1 0 35.5 61.40625 L 15.9375 50 L 35.5 38.59375 A 3.0003 3.0003 0 0 0 33.8125 32.96875 z M 65.78125 32.96875 A 3.0003 3.0003 0 0 0 64.5 38.59375 L 84.0625 50 L 64.5 61.40625 A 3.0003 3.0003 0 1 0 67.5 66.59375 L 91.5 52.59375 A 3.0003 3.0003 0 0 0 91.5 47.40625 L 67.5 33.40625 A 3.0003 3.0003 0 0 0 65.78125 32.96875 z "></path>
+
+</svg>

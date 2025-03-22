@@ -79,7 +79,7 @@ onMounted(() => {
     "Simples - Claro": cartoLightLayer,
     "Simples": cartoLayer,
     "Detalhado": osmLayer,
-    "Satélite": stadiaLayer
+    // "Satélite": stadiaLayer
   }
 
   L.control.layers(baseMaps).addTo(map)

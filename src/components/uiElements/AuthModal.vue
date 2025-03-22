@@ -4,7 +4,7 @@
   </transition>
   <transition name="grow">
     <section @click='close' v-if="showing">
-      <AuthBox @loggedIn="login" @signedUp="signup" @click.stop />
+      <AuthBox @loggedIn="login" @signedUp="signup" @click.stop :view="openingView" />
     </section>
   </transition>
 </template>
@@ -13,27 +13,30 @@
 import AuthBox from '@/components/uiElements/AuthBox.vue'
 import { ref, inject } from 'vue'
 import { useStore } from '@/stores/main'
+import { dispatchEvent } from '@/utils/events'
 
 const store = useStore()
-const message = inject('Message').value
 const showing = ref(false)
 const callback = ref(null)
+const openingView = ref('login')
 
-function show(cb) {
+function show(cb, view = 'login') {
+  openingView.value = view
   if (cb)
     callback.value = cb
   showing.value = true
+  dispatchEvent('closeAllMessages')
 }
 
 function login(data, msg = { success: `Olá, ${data.name.split(' ')[0]}! Que bom te ver de novo! 😊` }) {
   let userProfile = data
   store.setUserProfile(userProfile)
   close()
-  if (callback.value)
+  if (callback.value && typeof callback.value === 'function')
     callback.value()
   setTimeout(() => {
     if (msg)
-      message.show(msg)
+      dispatchEvent('showMessage', msg)
   }, 0)
 }
 
@@ -43,6 +46,7 @@ function signup(data) {
 
 function close() {
   showing.value = false
+  dispatchEvent('closeAllMessages')
 }
 
 defineExpose({ show })

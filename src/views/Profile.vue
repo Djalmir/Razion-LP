@@ -9,7 +9,7 @@
 						<Icon v-else class="user" :size="4.5" />
 					</div>
 					<transition name="grow">
-						<Button v-if="editing && mouseInPicture" id="editPictureBt" class="secondary" @click="filePicker.click()">
+						<Button v-if="editing && mouseInPicture" id="editPictureBt" class="neutral" @click="filePicker.click()">
 							<Icon class="edit-2" :size="1.15" />
 						</Button>
 					</transition>
@@ -57,7 +57,7 @@
 			<footer>
 				<Button v-if="!editing" class="danger" @click="accountDeletionModal.show()">Excluir conta</Button>
 				<Button v-if="!editing" class="primary" @click="editing = true">Editar</Button>
-				<Button v-if="editing" class="secondary" @click="cancelEdition">Cancelar</Button>
+				<Button v-if="editing" class="neutral" @click="cancelEdition">Cancelar</Button>
 				<Button v-if="editing" type="submit" @click="updateProfile">Salvar</Button>
 			</footer>
 		</form>

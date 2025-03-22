@@ -18,8 +18,15 @@ import Signup from '@/components/componentElements/AuthBox/Signup.vue'
 const route = useRoute()
 const hasAccount = ref(true)
 
+const props = defineProps({
+	view: {
+		type: String,
+		default: 'login'
+	}
+})
+
 onBeforeMount(() => {
-	if (route.path === '/auth/signup')
+	if (route.path === '/auth/signup' || props.view == 'signup')
 		hasAccount.value = false
 })
 

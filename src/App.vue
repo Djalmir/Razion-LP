@@ -3,32 +3,45 @@
     <RazionMenu v-if="hasPermissions" />
     <MenuItem pathName="EstimativeGenerator" label="Orçamentos" icon="file-text" />
   </MainMenu>
-  <Header v-if="!printingEstimative" @toggleTheme="changeTheme" />
+  <Header v-if="showHeader" @toggleTheme="changeTheme" :autoHide="autoHideHeader" />
   <RouterView />
   <Dialog ref="dialog" />
+  <AuthModal ref="authModal" />
   <Message ref="message" />
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, provide, computed } from 'vue'
-import { RouterView, useRouter } from 'vue-router'
+import { RouterView, useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Header from '@/components/uiElements/Header.vue'
 import MainMenu from '@/components/uiElements/MainMenu.vue'
 import RazionMenu from '@/components/uiElements/RazionMenu.vue'
 import MenuItem from '@/components/uiElements/MenuItem.vue'
 import Dialog from '@/components/uiElements/Dialog.vue'
+import AuthModal from '@/components/uiElements/AuthModal.vue'
 import Message from '@/components/uiElements/Message.vue'
 
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 const dialog = ref()
 provide('Dialog', dialog)
+const authModal = ref()
+provide('AuthModal', authModal)
 const message = ref()
 provide('Message', message)
 const prefersDark = ref(window.matchMedia("(prefers-color-scheme: dark)"))
 
 const hasPermissions = computed(() => store.userProfile?.role === 'owner' || store.userProfile?.role === 'admin')
+const showHeader = computed(() => {
+  const removeHeaderPathNames = ['Home', 'Privacy', 'Terms']
+  return !printingEstimative && !removeHeaderPathNames.includes(route.name)
+})
+const autoHideHeader = computed(() => {
+  const autoHidePathNames = ['Home']
+  return autoHidePathNames.includes(route.name)
+})
 const printingEstimative = ref(false)
 
 onMounted(() => {
@@ -43,6 +56,7 @@ onMounted(() => {
 
   window.addEventListener('showMessage', showMessage)
   window.addEventListener('printingEstimative', updatePrintingEstimative)
+  window.addEventListener('showAuthModal', authModal.value.show)
   window.addEventListener('logout', logout)
 
   let userProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null
@@ -66,12 +80,12 @@ function changeTheme() {
     if (store.darkTheme) {
       document.documentElement.classList.replace('light-theme', 'dark-theme')
       document.querySelector("[name=theme-color]").setAttribute("content", "#242424")
-      document.querySelector("link[rel='icon']").setAttribute("href", "/logo.svg")
+      document.querySelector("link[rel='icon']").setAttribute("href", "/razion-white-logo.svg")
     }
     else {
       document.documentElement.classList.replace('dark-theme', 'light-theme')
       document.querySelector("[name=theme-color]").setAttribute("content", "#dddddd")
-      document.querySelector("link[rel=icon]").setAttribute("href", "/white-logo.svg")
+      document.querySelector("link[rel=icon]").setAttribute("href", "/razion-logo.svg")
     }
   }, 0)
 }
@@ -92,6 +106,7 @@ function logout() {
 onBeforeUnmount(() => {
   window.removeEventListener('showMessage', showMessage)
   window.removeEventListener('printingEstimative', updatePrintingEstimative)
+  window.removeEventListener('showAuthModal', authModal.value.show)
   window.removeEventListener('logout', logout)
 })
 </script>

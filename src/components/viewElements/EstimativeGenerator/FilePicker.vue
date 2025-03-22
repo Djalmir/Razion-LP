@@ -21,7 +21,7 @@
     </div>
     <template v-slot:footer>
       <Button :disabled="!selectedFile" @click="open">Abrir</Button>
-      <Button class="secondary" @click="close">Cancelar</Button>
+      <Button class="neutral" @click="close">Cancelar</Button>
     </template>
   </Modal>
 </template>

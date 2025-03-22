@@ -16,7 +16,7 @@
 		<Input class="input" label="Informe sua senha para prosseguir." type="password" v-model="password" @keypress.enter="deleteAccount" />
 
 		<template v-slot:footer>
-			<Button class="secondary" @click="close">Cancelar</Button>
+			<Button class="neutral" @click="close">Cancelar</Button>
 			<Button type="submit" class="danger" @click="deleteAccount">Deletar minha conta</Button>
 		</template>
 

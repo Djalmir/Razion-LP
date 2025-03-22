@@ -1,5 +1,5 @@
 <template>
-	<button :disabled="loading" ref="self" :class="class" v-bind="$attrs">
+	<button :disabled="loading" ref="self" :class="props.class" v-bind="$attrs">
 		<div v-if="loading && type == 'submit'" style="display: grid; place-items: center;">
 			<Icon class="loader" />
 		</div>
@@ -23,7 +23,7 @@ const props = defineProps({
 })
 
 const linearGradient = computed(() => {
-	const styleClasses = ['primary', 'secondary', 'danger', 'success']
+	const styleClasses = ['primary', 'secondary', 'neutral', 'danger', 'success']
 	let classList = props.class.split(' ')
 	let className = classList.find(c => styleClasses.includes(c)) || 'primary'
 	return `linear-gradient(145deg, var(--${ className }-light), var(--${ className }))`
@@ -49,6 +49,11 @@ button {
 	user-select: none;
 	white-space: nowrap;
 	font-weight: bold;
+}
+
+.secondary,
+.success {
+	color: var(--light-font1);
 }
 
 button:hover:not(:disabled) {

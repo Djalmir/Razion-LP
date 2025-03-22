@@ -32,7 +32,7 @@ const switchBg = computed(() => {
 	if (props.switchColors) {
 		if (Array.isArray(props.switchColors))
 			return checked.value ? props.switchColors[1] : props.switchColors[0]
-		return checked.value ? 'var(--primary)' : 'var(--secondary)'
+		return checked.value ? 'var(--primary)' : 'var(--neutral)'
 	}
 	else
 		return 'var(--primary)'
@@ -85,7 +85,7 @@ const switchBg = computed(() => {
 }
 
 /* .light-theme .switch {
-	background-color: var(--secondary);
+	background-color: var(--neutral);
 } */
 
 .switchContainer:active .switch {

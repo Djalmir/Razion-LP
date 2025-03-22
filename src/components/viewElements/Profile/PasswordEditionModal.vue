@@ -10,7 +10,7 @@
 		<Input class="input" label="Confirmar nova senha" type="password" v-model="confirmNewPassword" @keypress.enter="updatePassword" />
 
 		<template v-slot:footer>
-			<Button class="secondary" @click="close">Cancelar</Button>
+			<Button class="neutral" @click="close">Cancelar</Button>
 			<Button type="submit" @click="updatePassword">Confirmar</Button>
 		</template>
 

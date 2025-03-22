@@ -9,8 +9,8 @@
 	--dark-bg4: #6b6b6b;
 	--dark-bg4-transparent: #6b6b6b99;
 
-	--dark-font1: #ababab;
-	--dark-font2: #e7e7e7;
+	--dark-font1: #999999;
+	--dark-font2: #c0c0c0;
 
 	--dark-box-shadow: 1px 1px 2px #000000d0;
 	--hover-dark-box-shadow: 1px 1px 4px #000000d0;
@@ -38,9 +38,13 @@
 	--primary-light: #4385ff;
 	--primary-transparent: #0059ff55;
 
-	--secondary: #4e4e57;
-	--secondary-light: #a5a5b3;
-	--secondary-transparent: #4e4e5755;
+	--secondary: #FFAF00;
+	--secondary-light: #FFC342;
+	--secondary-transparent: #FFAF0055;
+
+	--neutral: #4e4e57;
+	--neutral-light: #a5a5b3;
+	--neutral-transparent: #4e4e5755;
 
 	--danger: #be0000;
 	--danger-light: #ff5757;
@@ -48,7 +52,8 @@
 	--success: #00921d;
 	--success-light: #25e94c;
 
-	--scroll-track-bg: transparent;
+	--scroll-track-bg: #101010;
+	--light-scroll-track-bg: #373737;
 	--scroll-thumb-bg: #393939;
 	--light-scroll-thumb-bg: #999;
 	--scroll-thumb-hover-bg: #454545;
@@ -78,6 +83,8 @@
 	border: none;
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
+	scroll-margin: 49px;
 }
 
 body {
@@ -112,7 +119,10 @@ form {
 
 ::-webkit-scrollbar-track {
 	background-color: var(--scroll-track-bg);
+}
 
+.light-theme ::-webkit-scrollbar-track {
+	background-color: var(--light-scroll-track-bg);
 }
 
 ::-webkit-scrollbar-thumb {

@@ -141,7 +141,7 @@
               <Td v-else>R$ {{ Number(service.value).toFixed(2) }}</Td>
 
               <div v-if="editingRow == index" class="rowButtons">
-                <Button class="secondary rowButton" @click.stop="cancelEdition" title="Cancelar edição">
+                <Button class="neutral rowButton" @click.stop="cancelEdition" title="Cancelar edição">
                   <Icon class="x" bold />
                 </Button>
               </div>
@@ -170,7 +170,6 @@
     </Button>
   </section>
   <FilePicker ref="filePicker" @openFile="openFile" />
-  <AuthModal ref="authModal" />
 </template>
 
 <script setup>
@@ -189,7 +188,6 @@ import Th from '@/components/componentElements/Table/Th.vue'
 import Td from '@/components/componentElements/Table/Td.vue'
 import FilePicker from '@/components/viewElements/EstimativeGenerator/FilePicker.vue'
 import Toolbar from '@/components/viewElements/EstimativeGenerator/Toolbar.vue'
-import AuthModal from '@/components/uiElements/AuthModal.vue'
 import estimativeApi from '@/services/estimativeApi'
 import { getDate } from '@/utils/date'
 import { cpfCnpjMask, phoneMask } from '@/utils/masks'
@@ -205,7 +203,7 @@ const estimativeWrapper = ref()
 const table = ref()
 const filePicker = ref()
 const logoPicker = ref()
-const authModal = ref()
+const AuthModal = inject('AuthModal').value
 const printingEstimative = ref(false)
 const showingClientInfo = ref(false)
 const readOnlyMode = ref(false)
@@ -267,7 +265,7 @@ function ifLoggedIn(callback) {
   if (userProfile.value)
     callback()
   else {
-    authModal.value.show(callback)
+    AuthModal.show(callback)
     Message.show({ error: 'Você precisa fazer login para executar esta ação' })
   }
 }
@@ -487,14 +485,14 @@ async function shareEstimative() {
 section {
   width: 100%;
   padding: 45px 0 0;
-  gap: 17px;
+  min-height: 100vh;
 }
 
 #estimativeWrapper {
   width: 90vw;
   max-width: 800px;
   height: fit-content;
-  margin: 7px auto;
+  margin: 33px auto;
   padding: 7px;
   position: relative;
 }
@@ -533,7 +531,7 @@ header div.logoWrapper {
 }
 
 .placeholder {
-  border: 2px dotted var(--secondary);
+  border: 2px dotted var(--neutral);
   border-radius: .5rem;
   cursor: pointer;
   opacity: .5;

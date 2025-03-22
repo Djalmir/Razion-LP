@@ -1,7 +1,7 @@
 <template>
   <div class="statistics" v-show="userProfile && accessGranted">
     <div class="flexDiv" style="justify-content: flex-end; margin:0 0 17px; gap: 17px;">
-      <Switch v-model="showMyAccesses" left-icon="check" right-icon="x" style="transform: translateY(11px);" :switchColors="['var(--secondary)', 'var(--primary)']">
+      <Switch v-model="showMyAccesses" left-icon="check" right-icon="x" style="transform: translateY(11px);" :switchColors="['var(--neutral)', 'var(--primary)']">
         <template v-slot:left-label>
           <b style="font-size: .9rem;">
             Exibir meus acessos

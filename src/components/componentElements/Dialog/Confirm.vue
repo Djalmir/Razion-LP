@@ -89,10 +89,10 @@ footer {
 
 .cancelBt {
 	flex: .25;
-	background: linear-gradient(145deg, var(--secondary-light), var(--secondary));
+	background: linear-gradient(145deg, var(--neutral-light), var(--neutral));
 }
 
 .light-theme .cancelBt {
-	background: linear-gradient(145deg, var(--dark-bg4), var(--secondary));
+	background: linear-gradient(145deg, var(--dark-bg4), var(--neutral));
 }
 </style>

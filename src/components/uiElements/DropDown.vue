@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Icon from '@/components/uiElements/Icon.vue'
 import Image from '@/components/uiElements/Image.vue'
 import Switch from '@/components/formElements/Switch.vue'
@@ -38,41 +38,30 @@ const showing = ref(false)
 const target = ref(null)
 const transformOrigin = ref('top left')
 
-// const details = ref([])
 const reducedList = ref([])
 
 async function reduceList() {
 	return await props.list.reduce((arr, curr) => {
-		if (curr.vIf || curr.vIf === undefined) {
-			// if (details.value[arr.length] && curr.action) {
-			// 	let dets = details.value[arr.length]
-			// 	arr.push({
-			// 		...curr,
-			// 		action: () => curr.action.apply(null, [dets]),
-			// 	})
-			// }
-			// else
+		if (!!curr.vIf || curr.vIf === undefined) {
 			arr.push(curr)
 		}
 		return arr
 	}, [])
 }
 
-function toggleShowing(targetEl, align) {/*, det*/
+function toggleShowing(targetEl, align) {
 	showing.value = !showing.value
 	if (showing.value) {
-		show(targetEl, align)/*, det*/
+		show(targetEl, align)
 	}
 	else {
 		hide()
 	}
 }
 
-async function show(targetEl, align) {/*, det*/
-	// if (det)
-	// 	details.value = det
+async function show(targetEl, align) {
 	target.value = targetEl
-	transformOrigin.value = `top ${ align }`
+	transformOrigin.value = `top ${align}`
 	reducedList.value = await reduceList()
 	showing.value = true
 	setTimeout(() => {
@@ -165,4 +154,4 @@ li:active {
 	opacity: 0;
 	transform: scale(0);
 }
-</style>./Icon.vue./Image.vue./Icon.vue./Image.vue./Icon.vue./Image.vue./Icon.vue./Image.vue
+</style>

@@ -14,7 +14,7 @@
 				<footer class="modalFooter">
 					<slot name="footer"></slot>
 				</footer>
-				<Button class="secondary closeModalBt" @click="$emit('close')">
+				<Button class="neutral closeModalBt" @click="$emit('close')">
 					<Icon class="x" :size="1.5" />
 				</Button>
 			</div>
