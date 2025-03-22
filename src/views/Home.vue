@@ -76,31 +76,31 @@ const AuthModal = inject('AuthModal').value
 const toolWingsWidth = ref(0)
 const tools = computed(() => ([
   {
-    src: '/src/assets/TaskBoard logo.svg', alt: 'TaskBoard logo',
+    src: 'TaskBoard logo.svg', alt: 'TaskBoard logo',
     /*title: 'TaskBoard',*/ url: 'https://taskBoard.razion.app.br',
     description: 'Visualize seu fluxo de trabalho, acompanhe prazos e colabore com sua equipe em tempo real com este Kanban minimalista e intuitivo.',
     tagText: 'Beta', tagClass: 'primary'
   },
   {
-    src: '/src/assets/Precify logo.svg', alt: 'Precify logo',
+    src: 'Precify logo.svg', alt: 'Precify logo',
     /*title: 'Precify',*/ url: 'https://razion.app.br/estimativeGenerator',
     description: 'Crie orçamentos personalizados de forma rápida e profissional. Automatize cálculos e gere documentos prontos para envio.',
     tagText: 'Beta', tagClass: 'primary'
   },
   {
-    src: '/src/assets/Compresso logo.svg', alt: 'Compresso logo',
+    src: 'Compresso logo.svg', alt: 'Compresso logo',
     /*title: 'Compresso',*/ url: null,
     description: 'Comprima suas imagens sem comprometer a qualidade, facilitando compartilhamentos e otimização de sites.',
     tagText: 'Em breve'
   },
   {
-    src: '/src/assets/ConverThor logo.svg', alt: 'ConverThor logo',
+    src: 'ConverThor logo.svg', alt: 'ConverThor logo',
     /*title: 'ConverThor',*/ url: null,
     description: 'Converta diferentes formatos de arquivos com rapidez e precisão, garantindo compatibilidade em qualquer plataforma.',
     tagText: 'Em breve'
   },
   {
-    src: '/src/assets/Vox logo.svg', alt: 'Vox logo',
+    src: 'Vox logo.svg', alt: 'Vox logo',
     /*title: 'Vox',*/ url: null,
     description: 'Comunique-se com sua equipe em tempo real. Compartilhe informações, faça reuniões e colabore sem complicações.',
     tagText: 'Em breve'
@@ -108,25 +108,25 @@ const tools = computed(() => ([
 ]))
 const services = computed(() => ([
   {
-    src: '/src/assets/code.svg', alt: 'code',
+    src: 'code.svg', alt: 'code',
     title: 'Desenvolvimento',
     description: 'Desenvolvimento de sites e aplicativos web sob encomenda.'
   },
   {
-    src: '/src/assets/messages.svg', alt: 'messages',
+    src: 'messages.svg', alt: 'messages',
     title: 'Consultoria',
     description: 'Consultoria técnica em projetos de sites e aplicativos web.'
   }
 ]))
 const contacts = computed(() => ([
   {
-    src: '/src/assets/email.svg', alt: 'email',
+    src: 'email.svg', alt: 'email',
     title: 'Email',
     description: 'Envie-nos um e-mail e responderemos o mais breve possivel tirando todas as suas dúvidas.',
     url: 'mailto:djalmir_miodutzki@hotmail.com'
   },
   {
-    src: '/src/assets/Telegram.svg', alt: 'message',
+    src: 'Telegram.svg', alt: 'message',
     title: 'Telegram',
     description: 'Entre em contato conosco pelo Telegram.',
     url: 'https://t.me/RazionSoftwares'
