@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, inject } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Header from '@/components/viewElements/Home/Header.vue'
