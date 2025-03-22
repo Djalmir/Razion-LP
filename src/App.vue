@@ -36,7 +36,7 @@ const prefersDark = ref(window.matchMedia("(prefers-color-scheme: dark)"))
 const hasPermissions = computed(() => store.userProfile?.role === 'owner' || store.userProfile?.role === 'admin')
 const showHeader = computed(() => {
   const removeHeaderPathNames = ['Home', 'Privacy', 'Terms']
-  return !printingEstimative && !removeHeaderPathNames.includes(route.name)
+  return !printingEstimative.value && !removeHeaderPathNames.includes(route.name)
 })
 const autoHideHeader = computed(() => {
   const autoHidePathNames = ['Home']
