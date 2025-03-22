@@ -80,7 +80,7 @@ function changeTheme() {
     if (store.darkTheme) {
       document.documentElement.classList.replace('light-theme', 'dark-theme')
       document.querySelector("[name=theme-color]").setAttribute("content", "#242424")
-      document.querySelector("link[rel='icon']").setAttribute("href", "/razion-white-logo.svg")
+      document.querySelector("link[rel='icon']").setAttribute("href", "/razion-gold-logo.svg")
     }
     else {
       document.documentElement.classList.replace('dark-theme', 'light-theme')

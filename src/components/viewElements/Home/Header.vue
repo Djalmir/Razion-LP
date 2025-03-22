@@ -2,7 +2,7 @@
   <header>
     <div>
       <a href="#inicio">
-        <img src="/src/assets/Razion logo.svg" alt="Razion Logo" />
+        <img src="/src/assets/Razion logo 2.svg" alt="Razion Logo" />
       </a>
       <div class="menuContainer" ref="menuContainer">
         <Button class="flat menuBt" @click="toggleMenu" v-if="showMenuBt">

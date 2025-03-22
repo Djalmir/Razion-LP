@@ -45,7 +45,7 @@
       <p>Desde 2016 na área de desenvolvimento web, a Razion tem o objetivo de ajudar empresas e pessoas a alcançar seus objetivos na internet.</p>
       <p>Estamos comprometidos em fornecer ferramentas minimalistas e poderosas, possibilitando que você e sua equipe se concentrem no que realmente importa: a <b>execução das suas ideias</b>.</p>
     </div>
-    <img src="/src/assets/Razion logo 2.svg" alt="Razion logo" style="transform: scale(.5);">
+    <img src="/src/assets/Razion logo.svg" alt="Razion logo" style="transform: scale(.5);">
   </section>
   <section id="contatos">
     <div>
