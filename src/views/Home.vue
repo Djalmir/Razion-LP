@@ -61,7 +61,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/main'
 import Header from '@/components/viewElements/Home/Header.vue'
 import Footer from '@/components/viewElements/Home/Footer.vue'
@@ -70,6 +70,7 @@ import Card from '@/components/viewElements/Home/Card.vue'
 import Button from '@/components/uiElements/Button.vue'
 
 const router = useRouter()
+const route = useRoute()
 const store = useStore()
 const AuthModal = inject('AuthModal').value
 
@@ -77,13 +78,13 @@ const toolWingsWidth = ref(0)
 const tools = computed(() => ([
   {
     src: 'TaskBoard logo.svg', alt: 'TaskBoard logo',
-    /*title: 'TaskBoard',*/ url: 'https://taskBoard.razion.app.br',
+    /*title: 'TaskBoard',*/ url: 'https://apps.razion.games/taskboard',
     description: 'Visualize seu fluxo de trabalho, acompanhe prazos e colabore com sua equipe em tempo real com este Kanban minimalista e intuitivo.',
     tagText: 'Beta', tagClass: 'primary'
   },
   {
     src: 'Precify logo.svg', alt: 'Precify logo',
-    /*title: 'Precify',*/ url: 'https://razion.app.br/estimativeGenerator',
+    /*title: 'Precify',*/ url: 'https://apps.razion.games/estimativeGenerator',
     description: 'Crie orçamentos personalizados de forma rápida e profissional. Automatize cálculos e gere documentos prontos para envio.',
     tagText: 'Beta', tagClass: 'primary'
   },
@@ -135,6 +136,8 @@ const contacts = computed(() => ([
 
 onMounted(() => {
   updateWingsWidth()
+  if (route.name !== 'Home')
+    router.replace({ name: 'Home' })
   window.addEventListener('resize', updateWingsWidth)
 })
 
