@@ -37,8 +37,8 @@ const routes = [
     path: '/svgLib',
     name: 'SvgLib',
     component: () => import('@/views/SvgLibViewer.vue'),
-    authRequired: true,
-    onlyAdmin: true
+    // authRequired: true,
+    // onlyAdmin: true
   },
   {
     path: '/terms',
