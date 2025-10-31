@@ -78,7 +78,7 @@ const toolWingsWidth = ref(0)
 const tools = computed(() => ([
   {
     src: 'TaskBoard logo.svg', alt: 'TaskBoard logo',
-    /*title: 'TaskBoard',*/ url: 'https://apps.razion.games/taskboard',
+    /*title: 'TaskBoard',*/ url: 'https://taskboard.razion.games',
     description: 'Visualize seu fluxo de trabalho, acompanhe prazos e colabore com sua equipe em tempo real com este Kanban minimalista e intuitivo.',
     tagText: 'Beta', tagClass: 'primary'
   },
