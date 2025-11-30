@@ -7,7 +7,7 @@
 			<Button class="submitBt" type="submit">Entrar</Button>
 			<span class="link">
 				<b>Ainda não tem uma conta Razion?</b><br />
-				<a href="#" @click="$emit('goToSignup')">
+				<a href="javascript:void(0)" @click="$emit('goToSignup')">
 					Cadastre-se gratuitamente
 				</a>
 			</span>

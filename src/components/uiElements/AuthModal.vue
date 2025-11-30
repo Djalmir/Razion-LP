@@ -11,7 +11,7 @@
 
 <script setup>
 import AuthBox from '@/components/uiElements/AuthBox.vue'
-import { ref, inject } from 'vue'
+import { ref } from 'vue'
 import { useStore } from '@/stores/main'
 import { dispatchEvent } from '@/utils/events'
 

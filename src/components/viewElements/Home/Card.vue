@@ -11,7 +11,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import Button from '@/components/uiElements/Button.vue'
 
 const props = defineProps({
   src: {

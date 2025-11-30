@@ -15,7 +15,7 @@
           <a href="#servicos" @click="toggleMenu">Serviços</a>
           <a href="#sobre" @click="toggleMenu">Sobre</a>
           <a href="#contatos" @click="toggleMenu">Contatos</a>
-          <a href="#" @click="$emit('showLogin')" class="loginBtn" ref="loginBtn">
+          <a href="javascript:void(0)" @click="$emit('showLogin')" class="loginBtn" ref="loginBtn">
             <Icon class="login" :size="1.1" />
             Entrar
           </a>

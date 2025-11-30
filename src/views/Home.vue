@@ -1,6 +1,6 @@
 <template>
   <Header @showLogin="AuthModal.show()" />
-  <section id="inicio" class="flexSection" style="margin: 111px auto 33px;">
+  <section id="inicio" class="flexSection" style="padding: 117px 0 0; margin-bottom: 50px;">
     <div>
       <h1>Boas-vindas à Razion!</h1>
       <p>Acreditamos que a tecnologia deve ser uma aliada poderosa na sua rotina. Por isso, reunimos diversas ferramentas intuitivas e eficientes para facilitar seu trabalho, melhorar sua organização e aumentar sua produtividade. Seja para gerenciar tarefas, criar orçamentos ou otimizar arquivos, nossas soluções foram desenvolvidas para atender desde estudantes a profissionais e equipes que buscam performance máxima.</p>
@@ -62,16 +62,13 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from '@/stores/main'
 import Header from '@/components/viewElements/Home/Header.vue'
 import Footer from '@/components/viewElements/Home/Footer.vue'
-// import ShutterCarousel from '@/components/uiElements/ShutterCarousel.vue'
 import Card from '@/components/viewElements/Home/Card.vue'
 import Button from '@/components/uiElements/Button.vue'
 
 const router = useRouter()
 const route = useRoute()
-const store = useStore()
 const AuthModal = inject('AuthModal').value
 
 const toolWingsWidth = ref(0)
@@ -206,8 +203,6 @@ section.toolsAndServices {
   position: relative;
   filter: drop-shadow(0 0 7px #000000d0);
   flex-direction: column;
-  /* align-items: stretch; */
-  /* min-height: 70vh; */
 }
 
 .light-theme section.toolsAndServices {

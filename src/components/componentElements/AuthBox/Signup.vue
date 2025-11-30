@@ -9,7 +9,7 @@
 			<Button class="submitBt" type="submit">Criar Conta</Button>
 			<span class="link">
 				<b>Já tem uma conta?</b><br />
-				<a href="#" @click="$emit('goToLogin')">
+				<a href="javascript:void(0)" @click="$emit('goToLogin')">
 					Fazer Login
 				</a>
 			</span>
