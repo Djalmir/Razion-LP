@@ -84,7 +84,7 @@ const tools = computed(() => ([
   },
   {
     src: 'Precify logo.svg', alt: 'Precify logo',
-    /*title: 'Precify',*/ url: 'https://apps.razion.games/estimativeGenerator',
+    /*title: 'Precify',*/ url: 'https://lp.razion.games/estimativeGenerator',
     description: 'Crie orçamentos personalizados de forma rápida e profissional. Automatize cálculos e gere documentos prontos para envio.',
     tagText: 'Beta', tagClass: 'primary'
   },
