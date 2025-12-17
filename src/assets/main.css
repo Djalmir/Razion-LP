@@ -1,39 +1,32 @@
+/* ----------------------------------------------------------
+   THEME VARIABLES — DARK (DEFAULT)
+----------------------------------------------------------- */
+
 :root {
-	/*Dark theme*/
-	--dark-bg1: #1b1b1b;
-	--dark-bg1-transparent: #1b1b1b99;
-	--dark-bg2: #242424;
-	--dark-bg2-transparent: #24242499;
-	--dark-bg3: #303030;
-	--dark-bg3-transparent: #30303099;
-	--dark-bg4: #6b6b6b;
-	--dark-bg4-transparent: #6b6b6b99;
+	/* Backgrounds */
+	--bg1: #1b1b1b;
+	--bg1-transparent: #1b1b1b99;
+	--bg2: #242424;
+	--bg2-transparent: #24242499;
+	--bg3: #303030;
+	--bg3-transparent: #30303099;
+	--bg4: #6b6b6b;
+	--bg4-transparent: #6b6b6b99;
 
-	--dark-font1: #999999;
-	--dark-font2: #c0c0c0;
+	/* Typography */
+	--dark-font1: #3f3f3f;
+	--dark-font2: #616161;
+	--light-font1: #999999;
+	--light-font2: #c0c0c0;
+	--font1: var(--light-font1);
+	--font2: var(--light-font2);
 
-	--dark-box-shadow: 1px 1px 2px #000000d0;
-	--hover-dark-box-shadow: 1px 1px 4px #000000d0;
-	--inset-dark-box-shadow: inset 1px 1px 2px #000000d0;
+	/* Shadows */
+	--box-shadow: 1px 1px 2px #000000d0;
+	--box-shadow-hover: 1px 1px 4px #000000d0;
+	--box-shadow-inset: inset 1px 1px 2px #000000d0;
 
-	/*Light theme*/
-	--light-bg1: #bdbdbd;
-	--light-bg1-transparent: #bdbdbd99;
-	--light-bg2: #dddddd;
-	--light-bg2-transparent: #dddddd99;
-	--light-bg3: #ededed;
-	--light-bg3-transparent: #ededed99;
-	--light-bg4: #fefefe;
-	--light-bg4-transparent: #fefefe99;
-
-	--light-font1: #3f3f3f;
-	--light-font2: #616161;
-
-	--light-box-shadow: 1px 1px 2px #00000080;
-	--hover-light-box-shadow: 1px 1px 4px #00000080;
-	--inset-light-box-shadow: inset 1px 1px 2px #00000080;
-
-	/*Colors*/
+	/* Brand Colors */
 	--primary: #0059ff;
 	--primary-light: #4385ff;
 	--primary-transparent: #0059ff55;
@@ -52,29 +45,61 @@
 	--success: #00921d;
 	--success-light: #25e94c;
 
-	--scroll-track-bg: #101010;
-	--light-scroll-track-bg: #373737;
-	--scroll-thumb-bg: #393939;
-	--light-scroll-thumb-bg: #999;
-	--scroll-thumb-hover-bg: #454545;
-	--light-scroll-thumb-hover-bg: #fff;
-	--scroll-thumb-active-bg: #303030;
-	--light-scroll-thumb-active-bg: #777;
+	/* Scrollbars */
+	--scroll-track: #101010;
+	--scroll-thumb: #393939;
+	--scroll-thumb-hover: #454545;
+	--scroll-thumb-active: #303030;
 
-	/*General Settings*/
+	/* Global text/background */
+	color: var(--font1);
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
+
 	font-family: 'Roboto', sans-serif;
-	font-weight: 400;
 	font-size: 16px;
+	font-weight: 400;
 
 	color-scheme: light dark;
-	color: var(--dark-font1);
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 }
+
+/* ----------------------------------------------------------
+   THEME OVERRIDE — LIGHT THEME
+----------------------------------------------------------- */
+
+.light-theme {
+	--bg1: #bdbdbd;
+	--bg1-transparent: #bdbdbd99;
+	--bg2: #dddddd;
+	--bg2-transparent: #dddddd99;
+	--bg3: #ededed;
+	--bg3-transparent: #ededed99;
+	--bg4: #ffffff;
+	--bg4-transparent: #ffffff99;
+
+	--font1: var(--dark-font1);
+	--font2: var(--dark-font2);
+
+	--box-shadow: 1px 1px 2px #00000080;
+	--box-shadow-hover: 1px 1px 4px #00000080;
+	--box-shadow-inset: inset 1px 1px 2px #00000080;
+
+	--scroll-track: #373737;
+	--scroll-thumb: #999;
+	--scroll-thumb-hover: #fff;
+	--scroll-thumb-active: #777;
+
+	color: var(--font1);
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
+}
+
+/* ----------------------------------------------------------
+   RESET & GLOBAL RULES
+----------------------------------------------------------- */
 
 * {
 	margin: 0;
@@ -89,27 +114,23 @@
 
 body {
 	min-height: 100vh;
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
 	position: relative;
 }
 
-.light-theme body {
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-}
-
+/* FORMS */
 form {
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg2));
+	background: linear-gradient(145deg, var(--bg3), var(--bg2));
 	padding: 17px;
 	border-radius: .3rem;
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 	width: 90%;
 	max-width: 480px;
 }
 
-.light-theme form {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg2));
-	box-shadow: var(--light-box-shadow);
-}
+/* ----------------------------------------------------------
+   SCROLLBARS
+----------------------------------------------------------- */
 
 ::-webkit-scrollbar {
 	background: transparent;
@@ -118,83 +139,40 @@ form {
 }
 
 ::-webkit-scrollbar-track {
-	background-color: var(--scroll-track-bg);
-}
-
-.light-theme ::-webkit-scrollbar-track {
-	background-color: var(--light-scroll-track-bg);
+	background-color: var(--scroll-track);
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--scroll-thumb-bg);
+	background: var(--scroll-thumb);
 	border-radius: 7px;
 }
 
-.light-theme ::-webkit-scrollbar-thumb {
-	background: var(--light-scroll-thumb-bg);
-}
-
 ::-webkit-scrollbar-thumb:hover {
-	background: var(--scroll-thumb-hover-bg);
-}
-
-.light-theme ::-webkit-scrollbar-thumb:hover {
-	background: var(--light-scroll-thumb-hover-bg);
+	background: var(--scroll-thumb-hover);
 }
 
 ::-webkit-scrollbar-thumb:active {
-	background: var(--scroll-thumb-active-bg);
-	box-shadow: inset 1px 1px 1px var(--dark-bg1);
+	background: var(--scroll-thumb-active);
+	box-shadow: inset 1px 1px 1px var(--bg1);
 }
 
-.light-theme ::-webkit-scrollbar-thumb:active {
-	background: var(--light-scroll-thumb-active-bg);
-}
-
-::-webkit-scrollbar-corner {
-	background: transparent;
-}
+/* ----------------------------------------------------------
+   TEXT, LINKS & OTHER
+----------------------------------------------------------- */
 
 ::selection {
-	background: var(--light-bg2);
-	color: var(--primary);
-}
-
-.light-theme ::selection {
-	background: var(--dark-bg2);
+	background: var(--bg2);
 	color: var(--primary-light);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		color: var(--dark-font1);
-		background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-	}
-}
-
-@media (prefers-color-scheme: light) {
-	:root {
-		color: var(--light-font1);
-		background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-	}
-}
-
-.dark-theme {
-	color: var(--dark-font1);
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-}
-
-.light-theme {
-	color: var(--light-font1) !important;
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
 }
 
 a {
 	text-decoration: none;
 	color: var(--primary);
+	transition: 0.2s;
 }
 
-a:hover {
+a:hover,
+a:focus {
 	filter: brightness(1.2);
 }
 
@@ -206,20 +184,17 @@ a:visited {
 	color: var(--primary-light);
 }
 
+/* Animations */
 .loader {
 	animation: loader 1.5s linear infinite;
 }
 
 @keyframes loader {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(360deg); }
 }
 
+/* Transitions */
 .fade-enter-active,
 .fade-leave-active {
 	transition: all .3s ease;

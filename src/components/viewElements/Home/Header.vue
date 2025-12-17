@@ -11,14 +11,11 @@
         <div v-else></div>
         <nav>
           <a href="#inicio" @click="toggleMenu">Início</a>
-          <a href="#ferramentas" @click="toggleMenu">Ferramentas</a>
+          <a href="#projetos" @click="toggleMenu">Projetos</a>
           <a href="#servicos" @click="toggleMenu">Serviços</a>
           <a href="#sobre" @click="toggleMenu">Sobre</a>
           <a href="#contatos" @click="toggleMenu">Contatos</a>
-          <a href="javascript:void(0)" @click="$emit('showLogin')" class="loginBtn" ref="loginBtn">
-            <Icon class="login" :size="1.1" />
-            Entrar
-          </a>
+          <Switch class="themeSwitch" v-model="darkTheme" leftIcon="moon" rightIcon="sun" />
         </nav>
       </div>
     </div>
@@ -26,22 +23,37 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useStore } from '@/stores/main.js'
 import Button from '@/components/uiElements/Button.vue'
 import Icon from '@/components/uiElements/Icon.vue'
+import Switch from '@/components/formElements/Switch.vue'
 
 const headerPadding = ref('33px 0')
 const menuContainer = ref()
-const loginBtn = ref()
-const loginBtnWidth = computed(() => loginBtn.value?.offsetWidth + 'px')
 
 const windowWidth = ref(window.innerWidth)
 const showMenuBt = computed(() => windowWidth.value < 960)
+const store = useStore()
+const storeDarkTheme = computed(() => store.darkTheme)
+const darkTheme = ref(store.darkTheme)
+watch(storeDarkTheme, () => darkTheme.value = storeDarkTheme.value)
+watch(darkTheme, () => {
+  updateTheme()
+})
 
 onMounted(() => {
   window.addEventListener('scroll', updatePadding)
   window.addEventListener('resize', () => windowWidth.value = window.innerWidth)
 })
+
+function updateTheme() {
+  if (darkTheme.value) {
+    document.documentElement.classList.remove('light-theme')
+  } else {
+    document.documentElement.classList.add('light-theme')
+  }
+}
 
 function updatePadding() {
   if (window.scrollY > 0) {
@@ -70,14 +82,9 @@ header {
   width: 100%;
   z-index: 1;
   backdrop-filter: blur(5px);
-  background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg1-transparent));
-  box-shadow: var(--dark-box-shadow);
+  background: linear-gradient(145deg, var(--bg3-transparent), var(--bg1-transparent));
+  box-shadow: var(--box-shadow);
   user-select: none;
-}
-
-.light-theme header {
-  background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg1-transparent));
-  box-shadow: var(--light-box-shadow);
 }
 
 header>div {
@@ -120,8 +127,25 @@ img {
   overflow: hidden;
 }
 
-@media (min-width: 960px) {
+nav {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 17px;
+  text-transform: uppercase;
+  overflow: hidden;
+}
 
+nav a {
+  color: var(--font1);
+}
+
+.light-theme nav a {
+  color: var(--font2);
+}
+
+@media (min-width: 960px) {
   .menuContainer,
   .menuContainer.showing {
     grid-template-rows: 1fr;
@@ -134,41 +158,9 @@ img {
     align-items: center;
     gap: 17px;
   }
-}
 
-nav {
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 17px;
-  text-transform: uppercase;
-  overflow: hidden;
-}
-
-nav a {
-  color: var(--dark-font1);
-}
-
-.light-theme nav a {
-  color: var(--light-font2);
-}
-
-.loginBtn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid var(--primary);
-  border-radius: .3rem;
-  padding: 7px;
-  transition: .2s ease-out;
-  box-shadow: inset 0 0 0 var(--primary);
-}
-
-.loginBtn:hover {
-  /* background: var(--primary); */
-  transition: .2s ease-in;
-  box-shadow: inset 0 0 v-bind(loginBtnWidth) var(--primary);
-  color: var(--dark-bg1);
+  .themeSwitch {
+    margin-left: 17px;
+  }
 }
 </style>

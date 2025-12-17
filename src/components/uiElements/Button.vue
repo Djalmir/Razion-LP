@@ -41,11 +41,11 @@ window.addEventListener('setLoading', (e) => {
 button {
 	width: fit-content;
 	background: v-bind(linearGradient);
-	color: var(--dark-font2);
+	color: var(--font2);
 	padding: .5rem 1rem;
 	border-radius: .3rem;
 	cursor: pointer;
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 	user-select: none;
 	white-space: nowrap;
 	font-weight: bold;
@@ -53,46 +53,39 @@ button {
 
 .secondary,
 .success {
-	color: var(--light-font1);
+	color: var(--dark-font1);
 }
 
-button:hover:not(:disabled) {
+button:hover:not(:disabled),
+button:focus:not(:disabled) {
 	filter: brightness(1.2);
-	box-shadow: var(--hover-dark-box-shadow);
+	box-shadow: var(--box-shadow-hover);
 }
 
 button:active:not(:disabled) {
 	filter: brightness(.8);
-	box-shadow: var(--inset-dark-box-shadow);
+	box-shadow: var(--box-shadow-inset);
 }
 
 button:disabled {
 	opacity: .5;
 	cursor: not-allowed;
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
 }
 
 .light-theme button:disabled {
-	background: linear-gradient(145deg, var(--dark-bg4), var(--dark-bg2));
+	background: linear-gradient(145deg, var(--bg4), var(--bg2));
 }
 
 button.outline {
 	background: transparent;
-	color: var(--dark-font1);
-}
-
-.light-theme button.outline {
-	color: var(--light-font2);
+	color: var(--font1);
 }
 
 button.flat {
 	background: transparent;
-	color: var(--dark-font1);
+	color: var(--font1);
 	box-shadow: none;
-}
-
-.light-theme button.flat {
-	color: var(--light-font2);
 }
 
 button.flat:hover:not(:disabled),

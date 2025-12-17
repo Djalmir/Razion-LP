@@ -45,7 +45,7 @@ const tagBackground = computed(() => {
 
 const tagColor = computed(() => {
   let lightBackgrounds = ['success', 'secondary', 'neutral']
-  return lightBackgrounds.includes(props.tagClass) ? 'var(--light-font1)' : 'var(--dark-font2)'
+  return lightBackgrounds.includes(props.tagClass) ? 'var(--dark-font1)' : 'var(--light-font2)'
 })
 
 function accessLink() {
@@ -62,8 +62,8 @@ function accessLink() {
   overflow: hidden;
   user-select: none;
   border-radius: .3rem;
-  background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-  box-shadow: var(--dark-box-shadow);
+  background: linear-gradient(145deg, var(--bg2), var(--bg1));
+  box-shadow: var(--box-shadow);
   padding: 7px;
 }
 
@@ -71,27 +71,14 @@ function accessLink() {
   cursor: pointer;
 }
 
-.light-theme .card {
-  background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-  box-shadow: var(--light-box-shadow);
-}
-
 .card.clickable:hover {
   filter: brightness(1.1);
-  box-shadow: var(--hover-dark-box-shadow);
-}
-
-.light-theme .card.clickable:hover {
-  box-shadow: var(--hover-light-box-shadow);
+  box-shadow: var(--box-shadow-hover);
 }
 
 .card.clickable:active {
   filter: brightness(.9);
-  box-shadow: var(--inset-dark-box-shadow);
-}
-
-.light-theme .card.clickable:active {
-  box-shadow: var(--inset-light-box-shadow);
+  box-shadow: var(--box-shadow-inset);
 }
 
 .card img {
@@ -126,14 +113,10 @@ function accessLink() {
   border-radius: .3rem;
   background: v-bind(tagBackground);
   color: v-bind(tagColor);
-  box-shadow: var(--dark-box-shadow);
+  box-shadow: var(--box-shadow);
   display: grid;
   place-items: center;
   transform: translate(36%, 130%) rotate(45deg);
-}
-
-.light-theme .cardTag {
-  box-shadow: var(--light-box-shadow);
 }
 
 .cardTag b {

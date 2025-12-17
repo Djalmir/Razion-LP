@@ -37,7 +37,7 @@ footer {
   max-width: 1024px;
   margin: auto;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 #footerWrapper>div {

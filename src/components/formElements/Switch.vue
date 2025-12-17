@@ -1,5 +1,5 @@
 <template>
-	<label @click="handleClick" style="display: flex; align-items: center; gap: 7px; cursor: pointer;">
+	<label @click="handleClick">
 		<slot name="left-label"></slot>
 		<div class="switchContainer" tabindex="0">
 			<Icon v-if="leftIcon" :class="leftIcon" bold></Icon>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { computed, watch } from 'vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
 const props = defineProps(['leftIcon', 'rightIcon', 'modelValue', 'switchColors'])
@@ -42,6 +42,19 @@ const switchBg = computed(() => {
 </script>
 
 <style scoped>
+label {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	cursor: pointer;
+	text-align: left;
+	width: fit-content;
+}
+
+label:hover .switchContainer {
+	background: var(--bg2);
+}
+
 .switchContainer {
 	display: flex;
 	align-items: center;
@@ -49,25 +62,21 @@ const switchBg = computed(() => {
 	cursor: pointer;
 	padding: 5px 7px;
 	border-radius: 1rem;
-	background-color: var(--dark-bg1);
+	background-color: var(--bg1);
 	position: relative;
-	box-shadow: var(--inset-dark-box-shadow);
+	box-shadow: var(--box-shadow-inset);
 	width: fit-content;
 	min-width: 51px;
 	min-height: 27px;
 }
 
-.switchContainer:hover {
-	background-color: var(--dark-bg2);
-}
-
 .light-theme .switchContainer {
-	background-color: var(--light-bg4);
-	box-shadow: var(--inset-light-box-shadow);
+	background-color: var(--bg2);
+	box-shadow: var(--box-shadow-inset);
 }
 
-.light-theme .switchContainer:hover {
-	background-color: var(--light-bg2);
+.light-theme label:hover .switchContainer {
+	background-color: var(--bg3);
 }
 
 .switch {
@@ -83,10 +92,6 @@ const switchBg = computed(() => {
 	transform: translate(v-bind(switchTranslate), -50%) scale(1);
 	transform-origin: center center;
 }
-
-/* .light-theme .switch {
-	background-color: var(--neutral);
-} */
 
 .switchContainer:active .switch {
 	transform: translate(v-bind(switchTranslate), -50%) scale(.9);
