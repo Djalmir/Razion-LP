@@ -26,7 +26,7 @@ const linearGradient = computed(() => {
 	const styleClasses = ['primary', 'secondary', 'neutral', 'danger', 'success']
 	let classList = props.class.split(' ')
 	let className = classList.find(c => styleClasses.includes(c)) || 'primary'
-	return `linear-gradient(145deg, var(--${ className }-light), var(--${ className }))`
+	return `linear-gradient(145deg, var(--${className}-light), var(--${className}))`
 })
 
 const loading = ref(false)
@@ -41,7 +41,7 @@ window.addEventListener('setLoading', (e) => {
 button {
 	width: fit-content;
 	background: v-bind(linearGradient);
-	color: var(--font2);
+	color: var(--font1);
 	padding: .5rem 1rem;
 	border-radius: .3rem;
 	cursor: pointer;
@@ -49,6 +49,7 @@ button {
 	user-select: none;
 	white-space: nowrap;
 	font-weight: bold;
+	color: var(--light-font1);
 }
 
 .secondary,
@@ -91,5 +92,5 @@ button.flat {
 button.flat:hover:not(:disabled),
 button.flat:active:not(:disabled) {
 	box-shadow: none;
-} 
+}
 </style>

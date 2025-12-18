@@ -140,13 +140,9 @@ defineExpose({
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background: var(--dark-bg1-transparent);
+	background: var(--bg1-transparent);
 	backdrop-filter: blur(5px);
 	z-index: 2;
-}
-
-.light-theme #mainMenuShadow {
-	background: var(--light-bg1-transparent);
 }
 
 #mainMenu {
@@ -157,13 +153,8 @@ defineExpose({
 	max-width: 420px;
 	height: 100lvh;
 	z-index: 2;
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-	box-shadow: var(--dark-box-shadow);
-}
-
-.light-theme #mainMenu {
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-	box-shadow: var(--light-box-shadow);
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
+	box-shadow: var(--box-shadow);
 }
 
 #mainMenuInnerWrapper {

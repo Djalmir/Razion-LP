@@ -49,14 +49,9 @@ const props = defineProps(['estimative', 'readOnlyMode'])
 
 <style scoped>
 #tools {
-  background: var(--dark-bg1);
-  box-shadow: var(--dark-box-shadow);
+  background: var(--bg1);
+  box-shadow: var(--box-shadow);
   overflow: auto;
-}
-
-.light-theme #tools {
-  background: var(--light-bg1);
-  box-shadow: var(--light-box-shadow);
 }
 
 #tools div {
@@ -77,12 +72,13 @@ Button.headerButton {
   align-items: center;
   gap: 7px;
   transition: .2s ease;
+  color: var(--font2);
 }
 
 Button.headerButton:hover {
   background: var(--neutral);
-  color: var(--dark-font2);
-  box-shadow: var(--dark-box-shadow) !important;
+  color: var(--light-font1);
+  box-shadow: var(--box-shadow) !important;
   grid-template-columns: 1.25em 81px;
 }
 
@@ -99,7 +95,7 @@ Button.headerButton.success:hover {
 }
 
 Button.headerButton:active {
-  box-shadow: var(--inset-dark-box-shadow) !important;
+  box-shadow: var(--box-shadow-inset) !important;
 }
 
 b {

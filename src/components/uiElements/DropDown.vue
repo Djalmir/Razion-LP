@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import Icon from '@/components/uiElements/Icon.vue'
 import Image from '@/components/uiElements/Image.vue'
 import Switch from '@/components/formElements/Switch.vue'
@@ -105,21 +105,16 @@ defineExpose({ toggleShowing, show, hide, showing, target })
 	/* width: 90%; */
 	/* max-width: 220px; */
 	min-width: 220px;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg2));
+	background: linear-gradient(145deg, var(--bg3), var(--bg2));
 	list-style: none;
 	padding: 7px 0;
 	border-radius: .3rem;
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 	display: flex;
 	flex-direction: column;
 	z-index: 1;
 	transition: transform .2s, opacity .2s;
 	transform-origin: v-bind(transformOrigin);
-}
-
-.light-theme .dropdown {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg2));
-	box-shadow: var(--light-box-shadow);
 }
 
 li {
@@ -129,20 +124,12 @@ li {
 	gap: 7px;
 	align-items: center;
 	justify-content: space-between;
-	color: var(--dark-font1);
+	color: var(--font2);
 	user-select: none;
 }
 
-.light-theme li {
-	color: var(--light-font2);
-}
-
 li:hover {
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-}
-
-.light-theme li:hover {
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
 }
 
 li:active {

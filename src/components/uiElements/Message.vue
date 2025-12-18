@@ -97,8 +97,8 @@ defineExpose({
 	display: flex;
 	gap: 17px;
 	align-items: center;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
-	box-shadow: var(--dark-box-shadow);
+	background: linear-gradient(145deg, var(--bg3), var(--bg1));
+	box-shadow: var(--box-shadow);
 	border-radius: .3em;
 	padding: 7px;
 	padding-left: 17px;
@@ -107,11 +107,6 @@ defineExpose({
 	width: fit-content;
 	pointer-events: all;
 	font-weight: bold;
-}
-
-.light-theme .message {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
-	box-shadow: var(--light-box-shadow);
 }
 
 .message.success {
@@ -136,12 +131,8 @@ defineExpose({
 	display: grid;
 	place-items: center;
 	vertical-align: middle;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
-	color: var(--light-font2);
-}
-
-.light-theme .closeBt {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
+	background: linear-gradient(145deg, var(--bg3), var(--bg1));
+	color: var(--font2);
 }
 
 .messageAnimation-enter-active {
@@ -182,4 +173,4 @@ defineExpose({
 		transform: rotateZ(0deg);
 	}
 }
-</style>./Button.vue./Icon.vue./Button.vue./Icon.vue./Button.vue./Icon.vue./Button.vue./Icon.vue
+</style>

@@ -21,17 +21,15 @@
     </div>
     <Table class="table" ref="table" templateColumns="minmax(171px, 1fr) minmax(190px, 1fr) minmax(170px, 1fr) repeat(2, minmax(200px, 1fr)) minmax(110px, 1fr) repeat(2, minmax(111px, 1fr)) minmax(70px, 1fr)" @nextPage="getNextPage" :growOnHover="true">
       <template #headingRow>
-        <div class="titleRow">
-          <Th title="Data" sortValue="date" @click="setSortBy('date')" :showChevron="sortBy == 'date'" :chevronRotation="sortChevronRotation" />
-          <Th title="App" sortValue="app" @click="setSortBy('app')" :showChevron="sortBy == 'app'" :chevronRotation="sortChevronRotation" />
-          <Th title="IP" sortValue="ip" @click="setSortBy('ip')" :showChevron="sortBy == 'ip'" :chevronRotation="sortChevronRotation" />
-          <Th title="Usuário" sortValue="user.name" @click="setSortBy('user.name')" :showChevron="sortBy == 'user.name'" :chevronRotation="sortChevronRotation" />
-          <Th title="Navegador" sortValue="browser" @click="setSortBy('browser')" :showChevron="sortBy == 'browser'" :chevronRotation="sortChevronRotation" />
-          <Th title="Linguagem" sortValue="language" @click="setSortBy('language')" :showChevron="sortBy == 'language'" :chevronRotation="sortChevronRotation" />
-          <Th title="Cidade" sortValue="geolocation.city" @click="setSortBy('geolocation.city')" :showChevron="sortBy == 'geolocation.city'" :chevronRotation="sortChevronRotation" />
-          <Th title="Estado" sortValue="geolocation.region" @click="setSortBy('geolocation.region')" :showChevron="sortBy == 'geolocation.region'" :chevronRotation="sortChevronRotation" />
-          <Th title="País" sortValue="geolocation.country" @click="setSortBy('geolocation.country')" :showChevron="sortBy == 'geolocation.country'" :chevronRotation="sortChevronRotation" />
-        </div>
+        <Th title="Data" sortValue="date" @click="setSortBy('date')" :showChevron="sortBy == 'date'" :chevronRotation="sortChevronRotation" />
+        <Th title="App" sortValue="app" @click="setSortBy('app')" :showChevron="sortBy == 'app'" :chevronRotation="sortChevronRotation" />
+        <Th title="IP" sortValue="ip" @click="setSortBy('ip')" :showChevron="sortBy == 'ip'" :chevronRotation="sortChevronRotation" />
+        <Th title="Usuário" sortValue="user.name" @click="setSortBy('user.name')" :showChevron="sortBy == 'user.name'" :chevronRotation="sortChevronRotation" />
+        <Th title="Navegador" sortValue="browser" @click="setSortBy('browser')" :showChevron="sortBy == 'browser'" :chevronRotation="sortChevronRotation" />
+        <Th title="Linguagem" sortValue="language" @click="setSortBy('language')" :showChevron="sortBy == 'language'" :chevronRotation="sortChevronRotation" />
+        <Th title="Cidade" sortValue="geolocation.city" @click="setSortBy('geolocation.city')" :showChevron="sortBy == 'geolocation.city'" :chevronRotation="sortChevronRotation" />
+        <Th title="Estado" sortValue="geolocation.region" @click="setSortBy('geolocation.region')" :showChevron="sortBy == 'geolocation.region'" :chevronRotation="sortChevronRotation" />
+        <Th title="País" sortValue="geolocation.country" @click="setSortBy('geolocation.country')" :showChevron="sortBy == 'geolocation.country'" :chevronRotation="sortChevronRotation" />
       </template>
       <template #rows>
         <div v-for="access in accesses" :key="access._id" :class="`row ${showingAccess == access ? 'active' : ''}`" @click="() => { showingAccess = access; detailsModal.show(access) }">
@@ -240,11 +238,11 @@ function rmShowingAccess() {
 }
 
 .row {
-  transition: all .1s, background .35s !important;
+  transition: all .1s, background .35s;
 }
 
 .row.active {
-  background: var(--primary) !important;
-  color: var(--dark-font2) !important;
+  background: var(--primary);
+  color: var(--light-font1);
 }
 </style>

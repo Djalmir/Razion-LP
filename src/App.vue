@@ -110,5 +110,3 @@ onBeforeUnmount(() => {
   window.removeEventListener('logout', logout)
 })
 </script>
-
-<style scoped></style>

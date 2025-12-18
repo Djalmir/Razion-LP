@@ -56,7 +56,7 @@ defineExpose({ show })
 .modalShadow {
   position: fixed;
   inset: 0;
-  background: var(--dark-bg1-transparent);
+  background: var(--bg1-transparent);
   backdrop-filter: blur(5px);
   z-index: 3;
   transition-delay: .2s;

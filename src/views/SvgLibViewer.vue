@@ -131,8 +131,8 @@ h1 {
 	padding: 12px;
 	gap: 7px;
 	background: var(--neutral-transparent);
-	color: var(--color-2);
-	fill: var(--color-2);
+	color: var(--font2);
+	fill: var(--font2);
 	font-size: .9rem;
 	text-align: center;
 	border-radius: .4rem;
@@ -149,13 +149,13 @@ h1 {
 .svgCard:hover,
 .svgCard:focus {
 	background: var(--primary);
-	box-shadow: var(--hover-dark-box-shadow);
-	color: var(--bg-1);
-	fill: var(--bg-1);
+	box-shadow: var(--box-shadow-hover);
+	color: var(--font1);
+	fill: var(--font1);
 }
 
 .svgCard:active {
 	filter: brightness(.7);
-	box-shadow: var(--inset-dark-box-shadow);
+	box-shadow: var(--box-shadow-inset);
 }
 </style>

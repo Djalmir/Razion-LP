@@ -1,6 +1,6 @@
 <template>
 	<div class="tableWrapper" ref="tableWrapper">
-		<div v-if="renderingTable" class="loaderWrapper">
+		<div v-if="showLoading" class="loaderWrapper">
 			<div class="loaderDiv">
 				<Icon class="loader" :size="2" />
 				Carregando...
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount, ref, computed, nextTick } from 'vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
 const props = defineProps({
@@ -33,176 +33,66 @@ const props = defineProps({
 	growOnHover: {
 		type: Boolean,
 		default: false
+	},
+	loading: {
+		type: Boolean,
+		default: false
 	}
-
 })
 
-const tableWrapper = ref(null)
-const headingRow = ref(null)
-const rows = ref(null)
-const observer = ref(null)
-const themeObserver = ref(null)
-const renderingTable = ref(true)
-const autoUpdating = ref(false)
-const windowHeight = ref(window.innerHeight)
-const bounding = computed(() => { return tableWrapper.value.getBoundingClientRect() })
-const rowsWrapperHeight = computed(() => {
-	return windowHeight.value - bounding.value.top - 62 + 'px'
+const tableWrapper = ref()
+const rows = ref()
+const observer = ref()
+const windowHeight = computed(() => window.innerHeight)
+const bounding = computed(() => tableWrapper.value.getBoundingClientRect())
+const rowsWrapperHeight = computed(() => windowHeight.value - bounding.value.top - 62 + 'px')
+const showLoading = computed(() => props.loading)
+const rowPadding = computed(() => {
+	if (props.growOnHover)
+		return '17px 0'
+	else
+		return '0'
 })
-
+const templateColumns = computed(() => props.templateColumns)
 const emit = defineEmits(['nextPage'])
+const renderingTable = ref(true)
+
+const rowCount = ref(0)
+
+function handleRowsChange() {
+	rowCount.value = rows.value?.children?.length || 0
+	nextTick(() => renderingTable.value = false)
+}
 
 onMounted(() => {
-	if (props.templateColumns) {
-		tableWrapper.value.style.setProperty('--template-columns', props.templateColumns)
+	tableWrapper.value.addEventListener('scroll', getNextPage)
+
+	if (rows.value) {
+		observer.value = new MutationObserver(handleRowsChange)
+		observer.value.observe(rows.value, { childList: true })
+		handleRowsChange()
 	}
 
-	initObserver()
-	window.addEventListener('resize', () => {
-		windowHeight.value = window.innerHeight
-	})
-
-	tableWrapper.value.addEventListener('scroll', () => {
-		if (tableWrapper.value.scrollTop + tableWrapper.value.clientHeight > tableWrapper.value.scrollHeight * .7 && !renderingTable.value) {
-			emit('nextPage')
-		}
-	})
-
-	window.addEventListener('setLoading', setLoading)
 	setTimeout(() => {
-		handleChildrenChanged()
-
 		if (props.scrollbars) {
 			tableWrapper.value.style.overflow = 'auto'
 			tableWrapper.value.style.paddingBottom = '70px'
 			tableWrapper.value.style.height = rowsWrapperHeight.value
-
 			rows.value.style.paddingBottom = '25vh'
 		}
 	}, 0)
 })
 
-const darkTheme = ref(document.documentElement.classList.contains('dark-theme'))
-const darkTitlesRow = `
-	display: grid;
-	grid-template-columns: var(--template-columns);
-	color: var(--dark-font2);
-`
-const lightTitlesRow = `
-	display: grid;
-	grid-template-columns: var(--template-columns);
-	color: var(--light-font2);
-`
-
-const darkRow = (idx) => {
-	return `
-		display: grid;
-		grid-template-columns: var(--template-columns);
-		background: ${idx % 2 ? 'var(--dark-bg1)' : 'var(--dark-bg3)'};
-		color: var(--dark-font1);
-		cursor: pointer;
-		transition: .1s;
-	`
-}
-const lightRow = (idx) => {
-	return `
-		display: grid;
-		grid-template-columns: var(--template-columns);
-		background: ${idx % 2 ? 'var(--light-bg1)' : 'var(--light-bg3)'};
-		color: var(--light-font1);
-		cursor: pointer;
-		transition: .1s;
-	`
-}
-
-let titleStyleDone = false
-function handleChildrenChanged() {
-	autoUpdating.value = true
-
-	if (!titleStyleDone) {
-		let titlesRow = headingRow.value.children[0]
-		titlesRow.classList.add('titlesRow')
-		titlesRow.style = darkTheme.value ? darkTitlesRow : lightTitlesRow
-		titleStyleDone = true
+function getNextPage() {
+	if (tableWrapper.value.scrollTop + tableWrapper.value.clientHeight > tableWrapper.value.scrollHeight * .7 && !renderingTable.value) {
+		renderingTable.value = true
+		emit('nextPage')
 	}
-
-	let rowsChildren = Array.from(rows.value.children)
-	rowsChildren.map((row, idx) => {
-		row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
-		row.onmouseenter = () => {
-			row.style.filter = 'brightness(1.2)'
-			if (props.growOnHover)
-				row.style.padding = '17px 0'
-		}
-		row.onmousedown = () => {
-			row.style.filter = 'brightness(.7)'
-		}
-		row.onmouseup = () => {
-			row.style.filter = 'brightness(1.2)'
-		}
-		row.onmouseleave = () => {
-			row.style.filter = 'brightness(1)'
-			row.style.padding = '0'
-		}
-	})
-
-	autoUpdating.value = false
-	setTimeout(() => {
-		renderingTable.value = false
-	}, 100)
-}
-
-function themeUpdated() {
-	darkTheme.value = document.documentElement.classList.contains('dark-theme')
-	let titlesRow = headingRow.value.children[0]
-	let rowsChildren = Array.from(rows.value.children)
-	titlesRow.style = darkTheme.value ? darkTitlesRow : lightTitlesRow
-	rowsChildren.map((row, idx) => {
-		row.style = darkTheme.value ? darkRow(idx) : lightRow(idx)
-	})
-}
-
-function initObserver() {
-	let config = {
-		childList: true,
-		// subtree: true,
-		// attributes: true,
-		// attributeList: [ 'id' ] 
-	}
-	observer.value = new MutationObserver(() => {
-		if (!autoUpdating.value)
-			handleChildrenChanged()
-	})
-	observer.value.observe(headingRow.value, config)
-	observer.value.observe(rows.value, config)
-
-	setTimeout(() => {
-		themeObserver.value = new MutationObserver(() => {
-			themeUpdated()
-		})
-		config = {
-			attributes: true
-		}
-		themeObserver.value.observe(document.documentElement, config)
-	}, 0)
-}
-
-function refresh() {
-	handleChildrenChanged()
-}
-
-function setLoading(loading) {
-	renderingTable.value = loading.detail
 }
 
 onBeforeUnmount(() => {
+	tableWrapper.value.removeEventListener('scroll', getNextPage)
 	observer.value?.disconnect()
-	themeObserver.value?.disconnect()
-	window.removeEventListener('setLoading', setLoading)
-})
-
-defineExpose({
-	refresh
 })
 </script>
 
@@ -219,17 +109,37 @@ defineExpose({
 	left: 0;
 	min-width: fit-content;
 	z-index: 1;
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-	box-shadow: var(--dark-box-shadow);
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
+	box-shadow: var(--box-shadow);
+	display: grid;
+	grid-template-columns: v-bind(templateColumns);
+	color: var(--font2);
 }
 
 .rows {
 	min-width: fit-content;
 }
 
-.light-theme .headingRow {
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-	box-shadow: var(--light-box-shadow);
+.rows>* {
+	display: grid;
+	grid-template-columns: v-bind(templateColumns);
+	background: var(--bg1);
+	color: var(--font1);
+	cursor: pointer;
+	transition: .1s;
+}
+
+.rows>*:nth-child(odd) {
+	background: var(--bg3);
+}
+
+.rows>*:hover {
+	filter: brightness(1.2);
+	padding: v-bind(rowPadding);
+}
+
+.rows>*:active {
+	filter: brightness(.7);
 }
 
 .loaderWrapper {

@@ -16,8 +16,8 @@
 	/* Typography */
 	--dark-font1: #3f3f3f;
 	--dark-font2: #616161;
-	--light-font1: #999999;
-	--light-font2: #c0c0c0;
+	--light-font1: #c0c0c0;
+	--light-font2: #999999;
 	--font1: var(--light-font1);
 	--font2: var(--light-font2);
 
@@ -161,7 +161,7 @@ form {
 ----------------------------------------------------------- */
 
 ::selection {
-	background: var(--bg2);
+	background: var(--bg1);
 	color: var(--primary-light);
 }
 

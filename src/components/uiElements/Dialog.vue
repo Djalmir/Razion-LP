@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, computed, inject } from 'vue'
+import { ref, computed } from 'vue'
 import DialogMessage from '@/components/componentElements/Dialog/DialogMessage.vue'
 import Confirm from '@/components/componentElements/Dialog/Confirm.vue'
 import Prompt from '@/components/componentElements/Dialog/Prompt.vue'
@@ -93,7 +93,7 @@ defineExpose({
 .dialogShadow {
 	width: 100%;
 	height: 100vh;
-	background: var(--dark-bg1-transparent);
+	background: var(--bg1-transparent);
 	backdrop-filter: blur(2px);
 }
 

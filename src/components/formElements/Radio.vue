@@ -23,7 +23,7 @@ defineProps({
 <style scoped>
 input {
 	appearance: none;
-	background: var(--dark-bg1);
+	background: var(--bg1);
 	margin: 0;
 	font: inherit;
 	min-width: 16px;
@@ -32,46 +32,36 @@ input {
 	height: 16px;
 	max-width: 16px;
 	max-height: 16px;
-	border: 1px solid var(--dark-bg1);
+	border: 1px solid var(--bg1);
 	border-radius: 50%;
 	transform: translateY(-0.075em);
 	vertical-align: middle;
 	transition: .2s;
 	cursor: pointer;
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 }
 
 .light-theme input {
-	background: var(--light-bg4);
-	border: 1px solid var(--light-bg4);
+	background: var(--bg4);
+	border: 1px solid var(--bg4);
 }
 
 input:hover,
 input:focus {
-	box-shadow: var(--hover-dark-box-shadow);
-	border: 1px solid var(--primary);
-}
-
-.light-theme input:hover,
-.light-theme input:focus {
-	box-shadow: var(--hover-light-box-shadow);
+	box-shadow: var(--box-shadow-hover);
 	border: 1px solid var(--primary);
 }
 
 input:active {
-	box-shadow: 1px 2px 5px -2px var(--inset-dark-box-shadow);
-}
-
-.light-theme input:active {
-	box-shadow: 1px 2px 5px -2px var(--inset-light-box-shadow);
+	box-shadow: 1px 2px 5px -2px var(--box-shadow-inset);
 }
 
 input:checked {
-	background: radial-gradient(var(--primary) 51%, var(--dark-bg1)70%);
+	background: radial-gradient(var(--primary) 51%, var(--bg1)70%);
 	border: 1px solid var(--primary);
 }
 
 .light-theme input:checked {
-	background: radial-gradient(var(--primary) 51%, var(--light-bg4)70%);
+	background: radial-gradient(var(--primary) 51%, var(--bg4)70%);
 }
 </style>

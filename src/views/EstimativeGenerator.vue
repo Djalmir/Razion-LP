@@ -122,10 +122,8 @@
         <h2>Orçamento de serviços</h2>
         <Table ref="table" class="table" templateColumns="minmax(220px, 1fr) 130px 35px" :scrollbars="false">
           <template #headingRow>
-            <div>
-              <Th title="Descrição" />
-              <Th title="Valor" />
-            </div>
+            <Th title="Descrição" />
+            <Th title="Valor" />
           </template>
           <template #rows>
             <div v-for="(service, index) in estimative.value.services" :key="`service-${index}`" @click="setEditingRow(index)" @mouseenter="mouseIn = index" @mouseleave="mouseIn = -1">
@@ -198,9 +196,7 @@ const Dialog = inject('Dialog').value
 const Message = inject('Message').value
 const router = useRouter()
 const route = useRoute()
-const section = ref()
 const estimativeWrapper = ref()
-const table = ref()
 const filePicker = ref()
 const logoPicker = ref()
 const AuthModal = inject('AuthModal').value
@@ -498,15 +494,10 @@ section {
 }
 
 #estimative {
-  background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
-  box-shadow: var(--dark-box-shadow);
+  background: linear-gradient(145deg, var(--bg3), var(--bg1));
+  box-shadow: var(--box-shadow);
   border-radius: .5rem;
   padding: 7px;
-}
-
-.light-theme #estimative {
-  background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
-  box-shadow: var(--light-box-shadow);
 }
 
 header {
@@ -688,6 +679,7 @@ sup {
   aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
+  color: var(--light-font1);
 }
 
 Button.addRowButton.flat {

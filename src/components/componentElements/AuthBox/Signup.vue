@@ -89,6 +89,7 @@ h2 {
 	margin-top: 7px;
 	height: 39px;
 	font-weight: bold;
+	color: var(--light-font1);
 }
 
 .link {

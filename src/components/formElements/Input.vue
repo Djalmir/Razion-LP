@@ -66,7 +66,6 @@ span {
 	top: 50%;
 	left: 7px;
 	transform: translateY(-50%);
-	/* padding: 7px; */
 	cursor: pointer;
 }
 
@@ -80,29 +79,28 @@ input {
 	font-size: 1rem;
 	padding: 7px v-bind(rightPadding) 7px v-bind(leftPadding);
 	border-radius: .3rem;
-	box-shadow: var(--inset-dark-box-shadow);
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
-	color: var(--dark-font1);
+	box-shadow: var(--box-shadow-inset);
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
+	color: var(--font2);
 	width: 100%;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-	-webkit-box-shadow: var(--inset-dark-box-shadow), inset 0 0 0 1000px var(--dark-bg1) !important;
-	box-shadow: var(--inset-dark-box-shadow), inset 0 0 0 1000px var(--dark-bg1) !important;
+	-webkit-box-shadow: var(--box-shadow-inset), inset 0 0 0 1000px var(--bg1) !important;
+	box-shadow: var(--box-shadow-inset), inset 0 0 0 1000px var(--bg1) !important;
+	-webkit-text-fill-color: var(--font2) !important;
 }
 
 .light-theme input {
-	background: linear-gradient(145deg, var(--light-bg4), var(--light-bg3));
-	color: var(--light-font2);
+	background: linear-gradient(145deg, var(--bg4), var(--bg3));
 }
 
 .light-theme input:-webkit-autofill,
 .light-theme input:-webkit-autofill:hover,
 .light-theme input:-webkit-autofill:focus {
-	-webkit-box-shadow: var(--inset-light-box-shadow), inset 0 0 0 1000px var(--light-bg4) !important;
-	box-shadow: var(--inset-light-box-shadow), inset 0 0 0 1000px var(--light-bg4) !important;
-	-webkit-text-fill-color: var(--light-font2) !important;
+	-webkit-box-shadow: var(--box-shadow-inset), inset 0 0 0 1000px var(--bg4) !important;
+	box-shadow: var(--box-shadow-inset), inset 0 0 0 1000px var(--bg4) !important;
 }
 </style>

@@ -6,10 +6,8 @@
     <div id="filePicker">
       <Table templateColumns="3fr 1fr" class="table" :scrollbars="false">
         <template #headingRow>
-          <div>
-            <Th title="Nome" />
-            <Th title="Preço" />
-          </div>
+          <Th title="Nome" />
+          <Th title="Preço" />
         </template>
         <template #rows>
           <div v-for="file in files" @click="selectedFile = file" @dblclick="open(file)" :class="`row ${selectedFile == file ? 'active' : ''}`">
@@ -80,12 +78,12 @@ h1 {
   overflow: hidden;
 }
 
-.row {
-  transition: all .1s, background .35s !important;
+.table .row {
+  transition: all .1s, background .35s;
 }
 
-.row.active {
-  background: var(--primary) !important;
-  color: var(--dark-font2) !important;
+.table .row.active {
+  background: var(--primary);
+  color: var(--light-font1);
 }
 </style>

@@ -130,13 +130,9 @@ li {
   position: relative;
   border-radius: .3rem;
   cursor: pointer;
-  filter: drop-shadow(var(--dark-box-shadow));
+  filter: drop-shadow(var(--box-shadow));
   display: grid;
   place-items: center;
-}
-
-.light-theme li {
-  filter: drop-shadow(var(--light-box-shadow));
 }
 
 img {
@@ -152,27 +148,14 @@ img {
 .legend {
   width: 100%;
   padding: 7px 17px;
-  /* background: var(--dark-bg1-transparent);
-  border-top: 1px solid var(--primary);
-  backdrop-filter: blur(20px); */
 }
-
-/* .light-theme .legend {
-  background: var(--light-bg4-transparent);
-  color: var(--light-font1);
-} */
 
 .legend a {
   display: block;
   margin: 0 0 7px 7px;
   font-size: 1.3rem;
   font-weight: bold;
-  /* text-decoration: underline var(--secondary); */
-  color: var(--dark-font2);
-}
-
-.light-theme .legend a {
-  color: var(--light-font1);
+  color: var(--font2);
 }
 
 .appAccessBtn {

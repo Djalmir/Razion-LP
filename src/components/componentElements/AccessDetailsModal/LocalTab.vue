@@ -123,12 +123,8 @@ function getLongitude(loc) {
   transform: translate(17%, -17%);
   display: grid;
   place-items: center;
-  background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
+  background: linear-gradient(145deg, var(--bg3), var(--bg1));
   color: var(--danger-light);
   z-index: 1;
-}
-
-.light-theme .closeMapButton {
-  background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
 }
 </style>

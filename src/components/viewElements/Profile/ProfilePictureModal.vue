@@ -36,8 +36,8 @@ defineExpose({
 
 <style scoped>
 img {
-	max-width: 100%;
-	max-height: 100%;
+	max-width: calc(100vw - 131px);
+	max-height: calc(100vh - 131px);
 	object-position: center;
 	object-fit: cover;
 	border-radius: .3rem;

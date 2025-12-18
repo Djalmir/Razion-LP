@@ -94,27 +94,18 @@ defineExpose({
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: var(--dark-bg1-transparent);
+	background: var(--bg1-transparent);
 	backdrop-filter: blur(2px);
 	pointer-events: all;
-}
-
-.light-theme .modalShadow {
-	background: var(--light-bg1-transparent);
 }
 
 .modal {
 	position: relative;
 	max-width: 90vw;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
-	box-shadow: var(--dark-box-shadow);
+	background: linear-gradient(145deg, var(--bg3), var(--bg1));
+	box-shadow: var(--box-shadow);
 	border-radius: .3rem;
 	pointer-events: all;
-}
-
-.light-theme .modal {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
-	box-shadow: var(--light-box-shadow);
 }
 
 .modal .modalHeader:has(*) {
@@ -126,13 +117,9 @@ defineExpose({
 	width: 100%;
 	backdrop-filter: blur(5px);
 	border-radius: .3rem .3rem 0 0;
-	background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg1-transparent));
-	box-shadow: var(--light-box-shadow);
+	background: linear-gradient(145deg, var(--bg3-transparent), var(--bg1-transparent));
+	box-shadow: var(--box-shadow);
 	z-index: 2;
-}
-
-.light-theme .modal .modalHeader {
-	background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg1-transparent));
 }
 
 .modal section {
@@ -152,17 +139,12 @@ defineExpose({
 	padding: 7px 17px 17px;
 	backdrop-filter: blur(5px);
 	border-radius: 0 0 .3rem .3rem;
-	background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg1-transparent));
-	box-shadow: var(--dark-box-shadow);
+	background: linear-gradient(145deg, var(--bg3-transparent), var(--bg1-transparent));
+	box-shadow: var(--box-shadow);
 }
 
 .modalFooter * {
 	flex: 1;
-}
-
-.light-theme .modal .modalFooter {
-	background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg1-transparent));
-	box-shadow: var(--light-box-shadow);
 }
 
 .closeModalBt {
@@ -173,12 +155,8 @@ defineExpose({
 	transform: translate(17%, -17%);
 	display: grid;
 	place-items: center;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
+	background: linear-gradient(145deg, var(--bg3), var(--bg1));
 	color: var(--danger-light);
 	z-index: 2;
-}
-
-.light-theme .closeModalBt {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div class="tabs">
-		<header ref="header">
+		<header>
 			<nav>
 				<Button v-for="selector in tabSelectors" :key="selector.id" :class="`${currentTab == selector.id ? 'active' : ''} selector`" @click.stop="showTab(selector.id)" @mousedown.stop>
 					<Icon v-if="selector.icon" :class="selector.icon" :size="1.25" />
@@ -10,7 +10,7 @@
 		</header>
 		<transition name="growDown">
 			<section ref="section">
-				<slot></slot>
+				<slot />
 			</section>
 		</transition>
 	</div>
@@ -21,14 +21,12 @@ import { ref, onMounted, watch } from 'vue'
 import Button from '@/components/uiElements/Button.vue'
 import Icon from '@/components/uiElements/Icon.vue'
 
-const header = ref()
 const section = ref()
 const observer = ref()
 
 const tabSelectors = ref([])
 const currentTab = ref(null)
 watch(currentTab, (n, o) => {
-
 	let oldTab = section.value.querySelector(`[tab-id=${o}]`)
 	if (oldTab) {
 		oldTab.classList.remove('active')
@@ -80,11 +78,7 @@ function showTab(id) {
 
 <style scoped>
 .tabs {
-	filter: drop-shadow(var(--dark-box-shadow));
-}
-
-.light-theme .tabs {
-	filter: drop-shadow(var(--light-box-shadow));
+	filter: drop-shadow(var(--box-shadow));
 }
 
 header {
@@ -108,24 +102,15 @@ nav .selector {
 	padding: 3px 5px;
 	border-radius: .5rem .5rem 0 0;
 	box-shadow: none;
-	color: var(--dark-font1);
-	background: var(--dark-bg3);
+	color: var(--font2);
+	background: var(--bg3);
 	filter: brightness(.8);
-}
-
-.light-theme nav .selector {
-	color: var(--light-font1);
-	background: var(--light-bg3);
 }
 
 nav .selector:hover {
 	filter: brightness(.9);
-	color: var(--dark-font1);
+	color: var(--font1);
 	z-index: 1;
-}
-
-.light-theme nav .selector:hover {
-	color: var(--light-font1);
 }
 
 nav .selector:active {
@@ -149,13 +134,9 @@ nav .selector.active:before {
 	width: .5rem;
 	height: .5rem;
 	border-radius: 0 0 50% 0;
-	box-shadow: 0 5px 0 0 var(--dark-bg3);
+	box-shadow: 0 5px 0 0 var(--bg3);
 	transform: translateX(-100%);
 	pointer-events: none;
-}
-
-.light-theme nav .selector.active:before {
-	box-shadow: 0 5px 0 0 var(--light-bg3);
 }
 
 nav .selector.active:after {
@@ -166,22 +147,14 @@ nav .selector.active:after {
 	width: .5rem;
 	height: .5rem;
 	border-radius: 0 0 0 50%;
-	box-shadow: 0 5px 0 0 var(--dark-bg3);
+	box-shadow: 0 5px 0 0 var(--bg3);
 	transform: translateX(100%);
 	pointer-events: none;
 }
 
-.light-theme nav .selector.active:after {
-	box-shadow: 0 5px 0 0 var(--light-bg3);
-}
-
 section {
 	border-radius: .3rem;
-	background: linear-gradient(180deg, var(--dark-bg3), var(--dark-bg1));
-}
-
-.light-theme section {
-	background: linear-gradient(180deg, var(--light-bg3), var(--light-bg1));
+	background: linear-gradient(180deg, var(--bg3), var(--bg1));
 }
 
 .growDown-enter-active,

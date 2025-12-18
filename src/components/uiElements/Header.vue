@@ -174,9 +174,9 @@ onBeforeUnmount(() => {
 <style scoped>
 #appHeader {
 	display: flex;
-	background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg2-transparent));
+	background: linear-gradient(145deg, var(--bg3-transparent), var(--bg2-transparent));
 	backdrop-filter: blur(5px);
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 	z-index: 2;
 	position: fixed;
 	top: v-bind(headerTop);
@@ -184,12 +184,6 @@ onBeforeUnmount(() => {
 	left: 0;
 	width: 100%;
 }
-
-.light-theme #appHeader {
-	background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg2-transparent));
-	box-shadow: var(--light-box-shadow);
-}
-
 
 #mainMenuBtWrapper {
 	display: flex;
@@ -201,20 +195,16 @@ onBeforeUnmount(() => {
 
 #mainMenuBtWrapper.active {
 	width: 90vw;
-	background: linear-gradient(145deg, var(--dark-bg3-transparent), var(--dark-bg2));
+	background: linear-gradient(145deg, var(--bg3-transparent), var(--bg2));
 	box-shadow: 1px 0 2px #00000080;
-}
-
-.light-theme #mainMenuBtWrapper.active {
-	background: linear-gradient(145deg, var(--light-bg3-transparent), var(--light-bg2));
 }
 
 #mainMenuBt {
 	display: grid;
 	place-items: center;
 	background: transparent;
-	color: var(--light-font2);
-	stroke: var(--light-font2);
+	color: var(--font2);
+	stroke: var(--font2);
 	box-shadow: none;
 	transition: .2s;
 }
@@ -241,11 +231,11 @@ header {
 h1 {
 	font-size: 1.5rem;
 	margin: 0;
-	background: linear-gradient(to bottom, var(--light-bg1)0%, var(--dark-bg4)95%);
+	background: linear-gradient(to bottom, var(--light-font1)0%, var(--dark-font2)95%);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(1px 1px 0 var(--dark-bg1));
+	filter: drop-shadow(1px 1px 0 var(--dark-font1));
 	user-select: none;
 	white-space: nowrap;
 	max-width: calc(100vw - 85px);
@@ -253,11 +243,11 @@ h1 {
 }
 
 .light-theme h1 {
-	background: linear-gradient(to bottom, var(--dark-bg4)0%, var(--light-bg1)95%);
+	background: linear-gradient(to bottom, var(--dark-font2)0%, var(--light-font2)95%);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(1px 1px 0 var(--dark-bg4));
+	filter: drop-shadow(1px 1px 0 var(--dark-font2));
 }
 
 .headerBt {
@@ -267,17 +257,17 @@ h1 {
 	display: grid;
 	place-items: center;
 	padding: 0;
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg2));
+	background: linear-gradient(145deg, var(--bg3), var(--bg2));
+	color: var(--light-font2);
 }
 
 .light-theme .headerBt {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg2));
-	color: var(--light-font2);
+	color: var(--dark-font2);
 }
 
 .loader {
 	color: var(--primary);
-	background: radial-gradient(circle at center, var(--dark-bg1) 40%, var(--primary) 100%);
+	background: radial-gradient(circle at center, var(--bg1) 40%, var(--primary) 100%);
 	border-radius: 50%;
 	padding: 3px;
 	position: absolute;
@@ -289,7 +279,7 @@ h1 {
 }
 
 .light-theme .loader {
-	background: radial-gradient(circle at center, var(--light-bg1) 40%, var(--primary) 100%);
+	background: radial-gradient(circle at center, var(--bg3) 40%, var(--primary) 100%);
 	box-shadow: 0 0 2px 1px #00000040;
 }
 </style>

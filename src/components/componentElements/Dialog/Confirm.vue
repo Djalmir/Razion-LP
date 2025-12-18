@@ -40,18 +40,13 @@ function confirmBtFocus() {
 	max-width: 480px;
 	height: fit-content;
 	min-height: 180px;
-	background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1));
+	background: linear-gradient(145deg, var(--bg2), var(--bg1));
 	position: fixed;
 	top: 33px;
 	border-radius: .4rem;
-	box-shadow: var(--dark-box-shadow);
+	box-shadow: var(--box-shadow);
 	display: flex;
 	flex-direction: column;
-}
-
-.light-theme .messageDialog {
-	background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1));
-	box-shadow: var(--light-box-shadow);
 }
 
 .closeBt {
@@ -59,15 +54,11 @@ function confirmBtFocus() {
 	top: 0px;
 	right: 0px;
 	transform: translate(17%, -17%);
-	background: linear-gradient(145deg, var(--dark-bg3), var(--dark-bg1));
+	background: linear-gradient(145deg, var(--bg3), var(--bg1));
 	color: var(--danger-light);
 	padding: 2px;
 	display: grid;
 	place-items: center;
-}
-
-.light-theme .closeBt {
-	background: linear-gradient(145deg, var(--light-bg3), var(--light-bg1));
 }
 
 section {
@@ -85,14 +76,12 @@ footer {
 .confirmBt {
 	flex: .25;
 	margin-left: auto;
+	color: var(--light-font1);
 }
 
 .cancelBt {
 	flex: .25;
 	background: linear-gradient(145deg, var(--neutral-light), var(--neutral));
-}
-
-.light-theme .cancelBt {
-	background: linear-gradient(145deg, var(--dark-bg4), var(--neutral));
+	color: var(--light-font1);
 }
 </style>

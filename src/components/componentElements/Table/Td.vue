@@ -26,8 +26,4 @@ p:first-of-type {
 p:last-of-type {
   padding-right: 17px;
 }
-
-abbr {
-  text-decoration: none;
-}
 </style>

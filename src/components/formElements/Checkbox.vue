@@ -1,5 +1,10 @@
 <template>
-	<input type="checkbox" :checked="modelValue" @change="$emit('update:modelValue', $event.target.checked)" :class="`${props.class ? props.class : ''} ${props.pin ? 'pin' : ''}`" v-bind="$attrs" />
+	<label>
+		<input type="checkbox" :checked="modelValue" @change="$emit('update:modelValue', $event.target.checked)" :class="`${props.class ? props.class : ''} ${props.pin ? 'pin' : ''}`" v-bind="$attrs" />
+		<span>
+			{{ label }}
+		</span>
+	</label>
 </template>
 
 <script setup>
@@ -8,6 +13,10 @@ const props = defineProps({
 	modelValue: {
 		type: Boolean,
 		default: false
+	},
+	label: {
+		type: String,
+		default: ''
 	},
 	rounded: {
 		type: Boolean,
@@ -29,54 +38,61 @@ const borderRadius = computed(() => {
 </script>
 
 <style scoped>
+label {
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	cursor: pointer;
+	user-select: none;
+}
+
 input {
 	appearance: none;
-	background: var(--dark-bg1);
+	background: var(--bg1);
 	margin: 0;
 	font: inherit;
-	width: 1.15em;
-	min-width: 1.15em;
-	height: 1.15em;
-	min-height: 1.15em;
+	width: 1.2rem;
+	min-width: 1.2rem;
+	height: 1.2rem;
+	min-height: 1.2rem;
 	border-radius: v-bind(borderRadius);
-	box-shadow: inset 0 0 3px #000000d0;
-	transform: translateY(-0.075em);
+	box-shadow: var(--box-shadow-inset);
 	display: grid;
 	place-content: center;
-	transition: .2s;
+	transition: .15s;
 	cursor: pointer;
 }
 
 .light-theme input {
-	box-shadow: inset 0 0 3px #00000080;
-	background: var(--light-bg4);
+	background: var(--bg4);
 }
 
 input:hover,
 input:focus {
-	filter: brightness(1.1);
+	filter: brightness(1.2);
 }
 
 input:active {
-	filter: brightness(0.9);
+	filter: brightness(.8);
 }
 
 input:checked {
-	background: var(--primary);
+	background: var(--primary-transparent);
 }
 
 input::before {
 	content: "";
-	width: .85em;
-	height: .85em;
+	width: .7rem;
+	height: .7rem;
 	transform: scale(0);
-	transition: 120ms transform ease-in-out;
-	box-shadow: inset 1em 1em var(--dark-font1);
+	transition: .15s ease-in-out;
+	box-shadow: inset 1rem 1rem var(--primary-light);
 	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
 .light-theme input::before {
-	box-shadow: inset 1em 1em var(--dark-font2);
+	box-shadow: inset 1rem 1rem var(--primary);
 }
 
 input.pin:checked {
@@ -91,6 +107,6 @@ input.pin::before {
 }
 
 input:checked::before {
-	transform: scale(.8);
+	transform: scale(1);
 }
 </style>

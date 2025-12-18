@@ -61,7 +61,7 @@ p.tip {
   background: var(--primary-transparent);
   padding: 7px;
   border-radius: .3rem;
-  box-shadow: var(--dark-box-shadow);
+  box-shadow: var(--box-shadow);
 }
 
 p {

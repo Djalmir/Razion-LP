@@ -107,14 +107,9 @@ const profilePictureModal = inject('profilePictureModal')
   width: 73px;
   height: 73px;
   border-radius: 50%;
-  background: var(--dark-bg2);
-  box-shadow: var(--dark-box-shadow);
+  background: var(--bg2);
+  box-shadow: var(--box-shadow);
   position: relative;
-}
-
-.light-theme #pictureWrapper {
-  background: var(--light-bg2);
-  box-shadow: var(--light-box-shadow);
 }
 
 #pictureInnerWrapper {

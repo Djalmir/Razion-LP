@@ -79,12 +79,10 @@ function itemClick() {
 }
 
 .menuItemWrapper.showingSubMenu {
-	/* background: linear-gradient(145deg, var(--dark-bg2), var(--dark-bg1)); */
 	background: #00000020;
 }
 
 .light-theme .menuItemWrapper.showingSubMenu {
-	/* background: linear-gradient(145deg, var(--light-bg2), var(--light-bg1)); */
 	background: #ffffff40;
 }
 
@@ -94,21 +92,15 @@ function itemClick() {
 	align-items: center;
 	gap: 7px;
 	cursor: pointer;
-	/* transition: .2s; */
-	color: var(--light-font2);
+	color: var(--font2);
 	border-radius: .3em;
 }
 
 
 .menuItem:hover {
-	background: var(--dark-bg1-transparent);
-	color: var(--dark-font1);
+	background: var(--bg1-transparent);
+	color: var(--font1);
 	filter: brightness(1.1);
-}
-
-.light-theme .menuItem:hover {
-	background: var(--light-bg1-transparent);
-	color: var(--light-font1);
 }
 
 .menuItem:active {
@@ -116,12 +108,12 @@ function itemClick() {
 }
 
 .menuItem.active {
-	background: var(--dark-bg1-transparent);
+	background: var(--bg1-transparent);
 	color: var(--primary-light);
 }
 
 .light-theme .menuItem.active {
-	background: var(--light-bg2-transparent);
+	background: var(--bg2-transparent);
 	color: var(--primary);
 }
 
@@ -130,11 +122,7 @@ function itemClick() {
 	display: grid;
 	place-items: center;
 	overflow: hidden;
-	box-shadow: var(--dark-box-shadow);
-}
-
-.light-theme .pictureInnerWrapper {
-	box-shadow: var(--light-box-shadow);
+	box-shadow: var(--box-shadow);
 }
 
 .menuItem b {
@@ -150,14 +138,7 @@ function itemClick() {
 	border-radius: .3rem;
 	margin: 7px 0 7px 33px;
 	padding: 3px;
-	/* background: linear-gradient(145deg, var(--dark-bg2-transparent), var(--dark-bg1-transparent)); */
-	/* box-shadow: inset 0 0 3px #00000080; */
 }
-
-/* .light-theme .submenu {
-	background: linear-gradient(145deg, var(--light-bg2-transparent), var(--light-bg1-transparent));
-	box-shadow: inset 0 0 3px #00000040;
-} */
 
 .submenuAnim-enter-active,
 .submenuAnim-leave-active {
@@ -169,4 +150,4 @@ function itemClick() {
 .submenuAnim-leave-to {
 	transform: scaleY(0);
 }
-</style>./Icon.vue./Image.vue./Icon.vue./Image.vue./Icon.vue./Image.vue./Icon.vue./Image.vue
+</style>

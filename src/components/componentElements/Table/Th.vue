@@ -1,6 +1,6 @@
 <template>
   <b @click="$emit('click')">
-    {{ title }}
+    <span>{{ title }}</span>
     <Icon class="chevron-up" :size="1.25" v-if="showChevron" />
   </b>
 </template>
@@ -38,6 +38,7 @@ b {
   align-items: center;
   gap: 7px;
   justify-content: space-between;
+  color: var(--font2);
 }
 
 b:first-of-type {
@@ -45,19 +46,25 @@ b:first-of-type {
 }
 
 b:not(:last-of-type) {
-  border-right: 1px solid var(--light-font1);
+  border-right: 1px solid var(--dark-font1);
+}
+
+.light-theme b:not(:last-of-type) {
+  border-right: 1px solid var(--light-font2);
 }
 
 b:last-of-type {
   padding-right: 17px;
 }
 
-.light-theme b:not(:last-of-type) {
-  border-right: 1px solid var(--dark-font1);
+b:hover span,
+b:hover .chevron-up {
+  filter: brightness(1.3);
 }
 
-b:active {
-  filter: brightness(.5);
+b:active span,
+b:active .chevron-up {
+  filter: brightness(.7);
 }
 
 .chevron-up {
